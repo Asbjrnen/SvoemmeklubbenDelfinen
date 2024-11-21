@@ -4,13 +4,15 @@ public class Member {
     private int id;
     private String name;
     private int age;
-    private String Svimtype;
+    private String svimtype;
+    private String membertype;
 
-    public Member(int id, String name, int age, String Svimtype) {
+    public Member(int id, String name, int age, String svimtype, String membertype) {
         this.id = id;
         this.name = name;
         this.age = age;
-        this.Svimtype = Svimtype;
+        this.svimtype = svimtype;
+        this.membertype = membertype;
     }
     public int getId() {
         return id;
@@ -30,10 +32,23 @@ public class Member {
     public void setAge(int age) {
         this.age = age;
     }
+    //2 forskellige svømmetyper - junior/senior
     public String getSvimtype() {
-        return Svimtype;
+        return svimtype;
     }
     public void setSvimtype(String Svimtype) {
-        this.Svimtype = Svimtype;
+        this.svimtype = Svimtype;
     }
+    //2 forskellige medlemstyper - aktivt/passivt
+    public String getMembertype() {
+        return membertype;
+    }
+    public void setMembertype(String membertype) {
+        this.membertype = membertype;
+    }
+    @Override
+    public String toString() {
+    return "Id " + id + ", Name: " + name + ", Age: " + age + ", Svimtype: " + svimtype + ", Membertype: " + membertype;
+    }
+
 }
