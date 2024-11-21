@@ -48,7 +48,7 @@ public class Member {
     }
     @Override
     public String toString() {
-    return "Id " + id + ", Name: " + name + ", Age: " + age + ", Svimtype: " + svimtype + ", Membertype: " + membertype;
+    return "Id: " + id + ", Name: " + name + ", Age: " + age + ", Svimtype: " + svimtype + ", Membertype: " + membertype;
     }
 
 }
