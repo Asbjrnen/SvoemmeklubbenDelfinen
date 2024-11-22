@@ -3,18 +3,19 @@ package Models;
 import java.util.ArrayList;
 
 public class MemberList {
-private ArrayList<Member> members = new ArrayList<>();
+    private ArrayList<Member> members = new ArrayList<>();
 
-//Tilføjer members
-public void addMember(Member member) {
-    members.add(member);
-}
-//Fjerner members
-public void removeMember(Member member) {
-    members.remove(member);
-}
+    //Tilføjer members
+    public void addMember(Member member) {
+        members.add(member);
+    }
 
-//Skal bruges i Controller til save-file
+    //Fjerner members
+    public void removeMember(String name) {
+        members.remove(searchMembers(name).getFirst());
+    }
+
+    //Skal bruges i Controller til save-file
     public ArrayList<Member> getMembersList() {
         return members;
     }
@@ -26,6 +27,17 @@ public void removeMember(Member member) {
                 searchResult.add(member);
             }
         }
-return searchResult;
+        return searchResult;
+    }
+    public String printMembers() {
+        String membersString = "";
+        if (members.isEmpty()) {
+            membersString = "No members have been added to the list";
+        } else {
+            for (Member member : members) {
+                membersString += member + "\n ";
+            }
+        }
+        return membersString;
     }
 }
