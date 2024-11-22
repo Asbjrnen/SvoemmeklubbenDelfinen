@@ -42,6 +42,7 @@ public class UserInterface {
                 case 4 -> editMember();
                 case 5 -> sortMembers();
                 case 6 -> findMember();
+                case 7 -> exit = true;
             }
         }
     }
