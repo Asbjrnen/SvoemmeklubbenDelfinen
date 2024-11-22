@@ -5,6 +5,7 @@ import Models.Member;
 
 import java.io.IOException;
 import java.sql.SQLOutput;
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
@@ -18,10 +19,10 @@ public class UserInterface {
         this.controller = new Controller();
     }
 
-    public void Startprogram(){
+    public void Startprogram() {
 
         boolean exit = false;
-        while(!exit) {
+        while (!exit) {
             System.out.println("-------------------------------------------------");
             System.out.println("1) Add member to the list");
             System.out.println("2) Remove member from the list");
@@ -38,11 +39,11 @@ public class UserInterface {
                 case 1 -> addMember();
                 case 2 -> removeMember();
                 case 3 -> printMembers();
+                case 4 -> editMember();
             }
         }
-
-
     }
+
     private int getIntInput(String userInput) {
         while (true) {
             System.out.print(userInput);
@@ -55,7 +56,7 @@ public class UserInterface {
         }
     }
 
-    private void addMember(){
+    private void addMember() {
         scanner.nextLine();
         System.out.println("Please enter the name of the member you would like to add: ");
         String name = scanner.nextLine();
@@ -66,8 +67,7 @@ public class UserInterface {
         System.out.println("Please enter the type of member you would like to add: ");
         String memType = scanner.nextLine();
 
-        System.out.println("Please enter the age of the member you would like to add: ");
-        int age = scanner.nextInt();
+        int age = getIntInput("Please enter the age of the member you would like to add: ");
 
 //        System.out.println("A numerical ID will now be generated for the member");
 //        Random rand = new Random();
@@ -77,6 +77,7 @@ public class UserInterface {
 //        System.out.println("MemberID: " + idNumber);
         controller.addMember(new Member(name, age, swimType, memType));
     }
+
     private void removeMember() {
         scanner.nextLine();
         System.out.print("Enter the name of the member you want to delete: ");
@@ -85,7 +86,59 @@ public class UserInterface {
 
         System.out.println("Member deleted successfully");
     }
-    private void printMembers(){
+
+    private void printMembers() {
         System.out.println(controller.printMembers());
     }
+
+    private void editMember() {
+        System.out.print("Enter the name of the member you want to edit: ");
+        String name = scanner.nextLine();
+        int counter = 0;
+
+        scanner.nextLine();
+        ArrayList<Member> memberArrayList = controller.searchMembers(name);
+
+
+        if (!memberArrayList.isEmpty()) {
+            for (Member member : memberArrayList) {
+                counter++;
+                System.out.println(counter + ". " + member);
+            }
+            if (memberArrayList.size() >= 2) {
+                int input = getIntInput("Choose a number that is referring to the member you want to edit: ");
+                Member memberToEdit = memberArrayList.get(input - 1);
+                editHelper(memberToEdit);
+            } else {
+                Member memberToEdit = memberArrayList.getFirst();
+                editHelper(memberToEdit);
+            }
+        } else {
+            System.out.println("There are no members called that ");
+        }
+    }
+
+    private void editHelper(Member member){
+        System.out.print("Enter the new name of the member: ");
+        String name = scanner.nextLine();
+        if (!name.isEmpty()) {
+            member.setName(name);
+        }
+        System.out.println("Enter the new type of swimmer the member is: ");
+        String swimType = scanner.nextLine();
+        if (!swimType.isEmpty()) {
+            member.setSvimtype(swimType);
+        }
+        System.out.println("Enter the new type of member: ");
+        String memType = scanner.nextLine();
+        if (!memType.isEmpty()) {
+            member.setMembertype(memType);
+        }
+        System.out.println("Enter the new age of the member: ");
+        int age = getIntInput("");
+        member.setAge(age);
+
+        System.out.println("Member edited successfully");
+    }
+
 }

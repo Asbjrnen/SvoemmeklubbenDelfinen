@@ -1,5 +1,7 @@
 package Models;
 
+import java.util.ArrayList;
+
 public class Controller {
     private MemberList memberList;
 
@@ -17,6 +19,10 @@ public class Controller {
 
     public String printMembers() {
         return memberList.printMembers();
+    }
+
+    public ArrayList<Member> searchMembers(String name) {
+        return memberList.searchMembers(name);
     }
 
 }
