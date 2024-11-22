@@ -29,6 +29,7 @@ public class MemberList {
         }
         return searchResult;
     }
+
     public String printMembers() {
         String membersString = "";
         if (members.isEmpty()) {
@@ -36,6 +37,16 @@ public class MemberList {
         } else {
             for (Member member : members) {
                 membersString += member + "\n ";
+            }
+        }
+        return membersString;
+    }
+
+    public String findMember(String name) {
+        String membersString = "";
+        for (Member member : members) {
+            if (member.getName().toLowerCase().contains(name.toLowerCase())) {
+                membersString += member + "\n";
             }
         }
         return membersString;

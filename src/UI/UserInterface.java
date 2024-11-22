@@ -40,6 +40,8 @@ public class UserInterface {
                 case 2 -> removeMember();
                 case 3 -> printMembers();
                 case 4 -> editMember();
+                case 5 -> sortMembers();
+                case 6 -> findMember();
             }
         }
     }
@@ -139,6 +141,36 @@ public class UserInterface {
         member.setAge(age);
 
         System.out.println("Member edited successfully");
+    }
+
+    private void sortMembers(){
+        boolean running = false;
+        while (!running) {
+            System.out.println("-------------------------------------------------");
+            System.out.println("1) Sort by name");
+            System.out.println("2) ");
+            System.out.println("3) ");
+            System.out.println("4) ");
+            System.out.println("5) ");
+            System.out.println("6) ");
+            System.out.println("-------------------------------------------------");
+
+
+            int choice = getIntInput("Choose an option:");
+            switch (choice) {
+                case 1 -> {
+                    controller.sortByName();
+                    running = true;
+                }
+            }
+        }
+    }
+
+    private void findMember(){
+        scanner.nextLine();
+        System.out.println("Enter the name of the member you want to find");
+        String name = scanner.nextLine();
+        System.out.println(controller.findMember(name));
     }
 
 }
