@@ -21,6 +21,8 @@ public class UserInterface {
 
     public void Startprogram() {
 
+        controller.readMemberList();
+
         boolean exit = false;
         while (!exit) {
             System.out.println("-------------------------------------------------");
@@ -119,6 +121,7 @@ public class UserInterface {
         } else {
             System.out.println("There are no members called that ");
         }
+        controller.saveMemberList();
     }
 
     private void editHelper(Member member){
