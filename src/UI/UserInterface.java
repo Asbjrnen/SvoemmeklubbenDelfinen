@@ -111,7 +111,7 @@ public class UserInterface {
 
     private int generateUniqueID(){
         Random rand = new Random();
-        int max = 9999999, min = 10000000;
+        int max = 99999999, min = 10000000;
         int id;
         while (true) {
             id = rand.nextInt(max - min + 1) + min;
