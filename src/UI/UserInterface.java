@@ -198,7 +198,8 @@ public class UserInterface {
             System.out.println("2) sort by age");
             System.out.println("3) sort by membertype");
             System.out.println("4) sort by swimtype");
-            System.out.println("5) exit");
+            System.out.println("5) sort by memberID");
+            System.out.println("6) exit");
             System.out.println("-------------------------------------------------");
 
 
@@ -221,6 +222,10 @@ public class UserInterface {
                     running = true;
                 }
                 case 5 -> {
+                    controller.sortByID();
+                    running = true;
+                }
+                case 6 -> {
                     running = true;
                 }
             }

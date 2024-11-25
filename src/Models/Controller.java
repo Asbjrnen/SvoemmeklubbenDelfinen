@@ -1,10 +1,7 @@
 package Models;
 
-import Models.Comparators.AgeComparator;
-import Models.Comparators.MemberTComparator;
+import Models.Comparators.*;
 import Data_source.FileHandler;
-import Models.Comparators.NameComparator;
-import Models.Comparators.SwimTComparator;
 
 import java.util.ArrayList;
 
@@ -72,6 +69,10 @@ public class Controller {
     public void sortBySwimType(){
         SwimTComparator swimTComparator = new SwimTComparator();
         getMembers().sort(swimTComparator);
+    }
+    public void sortByID(){
+        IDComparator idComparator = new IDComparator();
+        getMembers().sort(idComparator);
     }
 
     public String findMember(String name) {
