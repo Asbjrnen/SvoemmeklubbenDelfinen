@@ -36,6 +36,11 @@ public class Controller {
         getMembers().sort(nameComparator);
     }
 
+    public void sortByAge(){
+        AgeComparator ageComparator = new AgeComparator();
+        getMembers().sort(ageComparator);
+    }
+
     public String findMember(String name) {
         return memberList.findMember(name);
     }
