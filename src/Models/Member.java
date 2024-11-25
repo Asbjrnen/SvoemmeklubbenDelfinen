@@ -33,7 +33,7 @@ public class Member {
         this.age = age;
     }
     //2 forskellige svømmetyper - junior/senior
-    public String getSvimtype() {
+    public String getSvimType() {
         return svimtype;
     }
     public void setSvimtype(String Svimtype) {

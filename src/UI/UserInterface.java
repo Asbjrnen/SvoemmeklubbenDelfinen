@@ -149,11 +149,10 @@ public class UserInterface {
         while (!running) {
             System.out.println("-------------------------------------------------");
             System.out.println("1) Sort by name");
-            System.out.println("2) ");
-            System.out.println("3) ");
-            System.out.println("4) ");
-            System.out.println("5) ");
-            System.out.println("6) ");
+            System.out.println("2) sort by age");
+            System.out.println("3) sort by membertype");
+            System.out.println("4) sort by swimtype");
+            System.out.println("5) exit");
             System.out.println("-------------------------------------------------");
 
 
@@ -161,6 +160,21 @@ public class UserInterface {
             switch (choice) {
                 case 1 -> {
                     controller.sortByName();
+                    running = true;
+                }
+                case 2 -> {
+                    controller.sortByAge();
+                    running = true;
+                }
+                case 3 -> {
+                    controller.sortByMemberType();
+                    running = true;
+                }
+                case 4 -> {
+                    controller.sortBySwimType();
+                    running = true;
+                }
+                case 5 -> {
                     running = true;
                 }
             }

@@ -1,6 +1,9 @@
 package Models;
 
+import Models.Comparators.AgeComparator;
+import Models.Comparators.MemberTComparator;
 import Models.Comparators.NameComparator;
+import Models.Comparators.SwimTComparator;
 
 import java.util.ArrayList;
 
@@ -39,6 +42,16 @@ public class Controller {
     public void sortByAge(){
         AgeComparator ageComparator = new AgeComparator();
         getMembers().sort(ageComparator);
+    }
+
+    public void sortByMemberType(){
+        MemberTComparator memberTComparator = new MemberTComparator();
+        getMembers().sort(memberTComparator);
+    }
+
+    public void sortBySwimType(){
+        SwimTComparator swimTComparator = new SwimTComparator();
+        getMembers().sort(swimTComparator);
     }
 
     public String findMember(String name) {
