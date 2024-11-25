@@ -4,7 +4,6 @@ import Models.Member;
 import Models.UserLogIn;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -41,7 +40,7 @@ public class FileHandler {
                 String line = scanner.nextLine();
                 String[] words = line.split(",");
                 String username = words[0];
-                int password = Integer.parseInt(words[1]);
+                String password = words[1];
                 userLogInList.add(new UserLogIn(username,password));
             }
 

@@ -28,7 +28,8 @@ public class UserInterface {
         while (!running) {
             System.out.println("Enter username:");
             String username = scanner.nextLine();
-            int password = getIntInput("Enter password: ");
+            System.out.println("Enter password:");
+            String password = scanner.nextLine();
 
             if (checkLogIn(username, password) == true) {
                 running = true;
@@ -73,11 +74,11 @@ public class UserInterface {
         }
     }
 
-    private boolean checkLogIn(String username, int password){
+    private boolean checkLogIn(String username, String password){
         boolean logIn = false;
         boolean foundUser = false;
         for (UserLogIn userLogIn : controller.readLogInFile()){
-            if (userLogIn.getUsername().equalsIgnoreCase(username) && userLogIn.getPassword() == password){
+            if (userLogIn.getUsername().equalsIgnoreCase(username) && userLogIn.getPassword().equalsIgnoreCase(password)) {
                 foundUser = true;
             }
         }
