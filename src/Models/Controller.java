@@ -1,7 +1,7 @@
 package Models;
 
+import Models.Comparators.*;
 import Data_source.FileHandler;
-import Models.Comparators.NameComparator;
 
 import java.util.ArrayList;
 
@@ -56,8 +56,36 @@ public class Controller {
         saveMemberList();
     }
 
+    public void sortByAge(){
+        AgeComparator ageComparator = new AgeComparator();
+        getMembers().sort(ageComparator);
+    }
+
+    public void sortByMemberType(){
+        MemberTComparator memberTComparator = new MemberTComparator();
+        getMembers().sort(memberTComparator);
+    }
+
+    public void sortBySwimType(){
+        SwimTComparator swimTComparator = new SwimTComparator();
+        getMembers().sort(swimTComparator);
+    }
+    public void sortByID(){
+        IDComparator idComparator = new IDComparator();
+        getMembers().sort(idComparator);
+    }
+
     public String findMember(String name) {
         return memberList.findMember(name);
+    }
+
+    public boolean isIDTaken(int id) {
+        for (Member member : memberList.getMembersList()) {
+            if (member.getId() == id) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }

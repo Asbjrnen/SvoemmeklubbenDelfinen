@@ -24,8 +24,9 @@ public class FileHandler {
                 int age = Integer.parseInt(words[1]);
                 String svimtype = words[2];
                 String membertype = words[3];
+                int id = Integer.parseInt(words[4]);
 
-                memberList.add(new Member(name, age, svimtype, membertype));
+                memberList.add(new Member(name, age, svimtype, membertype, id));
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -54,7 +55,7 @@ public class FileHandler {
         try {
             FileWriter fileWriter = new FileWriter("Memberlist.txt");
             for(Member member : memberList){
-                fileWriter.write(member.getName()+","+member.getAge()+","+member.getSvimtype()+","+member.getMembertype()+"\n");
+                fileWriter.write(member.getName()+","+member.getAge()+","+member.getSvimType()+","+member.getMembertype()+"\n");
             }
             fileWriter.close();
 
