@@ -1,6 +1,7 @@
 package Data_source;
 
 import Models.Member;
+import Models.UserLogIn;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -10,6 +11,7 @@ import java.util.Scanner;
 
 public class FileHandler {
     private File memberListFile = new File("Memberlist.txt");
+    private File logInFile = new File("UserLogin.txt");
 
 
 
@@ -30,6 +32,23 @@ public class FileHandler {
             throw new RuntimeException(e);
         }
         return memberList;
+    }
+
+    public ArrayList<UserLogIn> readUserLogIn(){
+        ArrayList<UserLogIn> userLogInList = new ArrayList<>();
+        try(Scanner scanner = new Scanner(logInFile)) {
+            while(scanner.hasNextLine()){
+                String line = scanner.nextLine();
+                String[] words = line.split(",");
+                String username = words[0];
+                int password = Integer.parseInt(words[1]);
+                userLogInList.add(new UserLogIn(username,password));
+            }
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return userLogInList;
     }
 
     public void saveFile(ArrayList<Member> memberList){

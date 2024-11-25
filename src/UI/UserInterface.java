@@ -2,6 +2,7 @@ package UI;
 
 import Models.Controller;
 import Models.Member;
+import Models.UserLogIn;
 
 import java.io.IOException;
 import java.sql.SQLOutput;
@@ -22,6 +23,17 @@ public class UserInterface {
     public void Startprogram() {
 
         controller.readMemberList();
+
+        boolean running = false;
+        while (!running) {
+            System.out.println("Enter username:");
+            String username = scanner.nextLine();
+            int password = getIntInput("Enter password: ");
+
+            if (checkLogIn(username, password) == true) {
+                running = true;
+            }
+        }
 
         boolean exit = false;
         while (!exit) {
@@ -59,6 +71,22 @@ public class UserInterface {
                 scanner.nextLine();
             }
         }
+    }
+
+    private boolean checkLogIn(String username, int password){
+        boolean logIn = false;
+        boolean foundUser = false;
+        for (UserLogIn userLogIn : controller.readLogInFile()){
+            if (userLogIn.getUsername().equalsIgnoreCase(username) && userLogIn.getPassword() == password){
+                foundUser = true;
+            }
+        }
+        if (foundUser == true){
+            logIn = true;
+        } else if (foundUser == false){
+            System.out.println("Invalid username or password. Please try again.");
+        }
+        return logIn;
     }
 
     private void addMember() {

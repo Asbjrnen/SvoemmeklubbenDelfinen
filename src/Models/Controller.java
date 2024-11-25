@@ -15,13 +15,17 @@ public class Controller {
     }
 
     public void readMemberList(){
-        for (Member meber : fileHandler.readFileMemberList()){
-            memberList.addMember(meber);
+        for (Member member : fileHandler.readFileMemberList()){
+            memberList.addMember(member);
         }
     }
 
     public void saveMemberList(){
         fileHandler.saveFile(memberList.getMembersList());
+    }
+
+    public ArrayList<UserLogIn> readLogInFile(){
+        return fileHandler.readUserLogIn();
     }
 
     public void addMember(Member member) {
