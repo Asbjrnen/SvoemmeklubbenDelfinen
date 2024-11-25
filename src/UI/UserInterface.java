@@ -74,14 +74,29 @@ public class UserInterface {
 
         int age = getIntInput("Please enter the age of the member you would like to add: ");
 
-//        System.out.println("A numerical ID will now be generated for the member");
-//        Random rand = new Random();
-//        int max=9999999,min=10000000;
-//        int idNumber = rand.nextInt(max-min+1) + min;
-//
-//        System.out.println("MemberID: " + idNumber);
-        controller.addMember(new Member(name, age, swimType, memType));
+        System.out.println("A numerical ID will now be generated for the member");
+        int id = generateUniqueID();
+
+        System.out.println("MemberID: " + id);
+        controller.addMember(new Member(name, age, swimType, memType, id));
     }
+
+    private int generateUniqueID(){
+        Random rand = new Random();
+        int max = 9999999, min = 10000000;
+        int id;
+        while (true) {
+            id = rand.nextInt(max - min + 1) + min;
+            if (!controller.isIDTaken(id)) {
+                break;
+            } else {
+                System.out.println("a similar ID has been detected, generating a new one");
+            }
+        }
+        return id;
+    }
+
+
 
     private void removeMember() {
         scanner.nextLine();
@@ -124,7 +139,7 @@ public class UserInterface {
         controller.saveMemberList();
     }
 
-    private void editHelper(Member member){
+    private void editHelper(Member member) {
         System.out.print("Enter the new name of the member: ");
         String name = scanner.nextLine();
         if (!name.isEmpty()) {
@@ -147,7 +162,7 @@ public class UserInterface {
         System.out.println("Member edited successfully");
     }
 
-    private void sortMembers(){
+    private void sortMembers() {
         boolean running = false;
         while (!running) {
             System.out.println("-------------------------------------------------");
@@ -184,7 +199,7 @@ public class UserInterface {
         }
     }
 
-    private void findMember(){
+    private void findMember() {
         scanner.nextLine();
         System.out.println("Enter the name of the member you want to find");
         String name = scanner.nextLine();

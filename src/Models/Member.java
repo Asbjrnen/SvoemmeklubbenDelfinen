@@ -1,25 +1,25 @@
 package Models;
 
 public class Member {
-//    private int id;
+    private int id;
     private String name;
     private int age;
     private String svimtype;
     private String membertype;
 
-    public Member(String name, int age, String svimtype, String membertype) {
-//        this.id = id;
+    public Member(String name, int age, String svimtype, String membertype, int id) {
+        this.id = id;
         this.name = name;
         this.age = age;
         this.svimtype = svimtype;
         this.membertype = membertype;
     }
-//    public int getId() {
-//        return id;
-//    }
-//    public void setId(int id) {
-//        this.id = id;
-//    }
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
+    }
     public String getName() {
         return name;
     }

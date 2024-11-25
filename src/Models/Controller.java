@@ -74,4 +74,13 @@ public class Controller {
         return memberList.findMember(name);
     }
 
+    public boolean isIDTaken(int id) {
+        for (Member member : memberList.getMembersList()) {
+            if (member.getId() == id) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }
