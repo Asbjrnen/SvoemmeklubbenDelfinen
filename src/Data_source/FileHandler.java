@@ -13,7 +13,7 @@ public class FileHandler {
     private File logInFile = new File("UserLogin.txt");
 
 
-
+//MULIGGØRER TILFØJELSE AF MEMBER TIL MEMBERLIST.TXT
     public ArrayList<Member> readFileMemberList(){
         ArrayList<Member> memberList = new ArrayList<>();
         try(Scanner scanner = new Scanner(memberListFile)) {
@@ -33,7 +33,7 @@ public class FileHandler {
         }
         return memberList;
     }
-
+//OPRETTELSE AF ADGANGSPORTAL TIL FORSKELLIGE USERS
     public ArrayList<UserLogIn> readUserLogIn(){
         ArrayList<UserLogIn> userLogInList = new ArrayList<>();
         try(Scanner scanner = new Scanner(logInFile)) {
@@ -50,7 +50,7 @@ public class FileHandler {
         }
         return userLogInList;
     }
-
+//GEMMER FORSKELLIGE MEMBERS TIL MEMBERLIST.TXT
     public void saveFile(ArrayList<Member> memberList){
         try {
             FileWriter fileWriter = new FileWriter("Memberlist.txt");

@@ -4,8 +4,6 @@ import Models.Controller;
 import Models.Member;
 import Models.UserLogIn;
 
-import java.io.IOException;
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Random;
@@ -19,7 +17,7 @@ public class UserInterface {
         this.scanner = new Scanner(System.in);
         this.controller = new Controller();
     }
-
+//STARTER PROGRAMMET 
     public void Startprogram() {
 
         controller.readMemberList();
@@ -35,7 +33,7 @@ public class UserInterface {
                 running = true;
             }
         }
-
+//REGISTER LISTEN TIL UDVIKLER TEAMET (AL INFORMATION ER TILGÆNGELIGT)
         boolean exit = false;
         while (!exit) {
             System.out.println("-------------------------------------------------");
@@ -61,7 +59,7 @@ public class UserInterface {
             }
         }
     }
-
+//RESPONDERER TIL USERS INPUT OM DET ER KORREKT ELLER EJ
     private int getIntInput(String userInput) {
         while (true) {
             System.out.print(userInput);
@@ -73,7 +71,7 @@ public class UserInterface {
             }
         }
     }
-
+//RESPONDERER TIL USERS LOGIN OM DER ER TILLADELSE FOR ADGANG
     private boolean checkLogIn(String username, String password){
         boolean logIn = false;
         boolean foundUser = false;
@@ -89,7 +87,7 @@ public class UserInterface {
         }
         return logIn;
     }
-
+//TILFØJER ET MEMBER TIL MEMBERLIST.TXT
     private void addMember() {
         scanner.nextLine();
         System.out.println("Please enter the name of the member you would like to add: ");
@@ -109,7 +107,7 @@ public class UserInterface {
         System.out.println("MemberID: " + id);
         controller.addMember(new Member(name, age, swimType, memType, id));
     }
-
+//GENERER ET RANDOM ID TIL ET OPRETTET MEMBER
     private int generateUniqueID(){
         Random rand = new Random();
         int max = 99999999, min = 10000000;
@@ -126,7 +124,7 @@ public class UserInterface {
     }
 
 
-
+//SYSTEMETS RESPONS TIL USER DER VIL FJERNE MEMBER
     private void removeMember() {
         scanner.nextLine();
         System.out.print("Enter the name of the member you want to delete: ");
@@ -135,11 +133,11 @@ public class UserInterface {
 
         System.out.println("Member deleted successfully");
     }
-
+//METODE TIL AT UDPRINTE LISTE AF MEMBERS
     private void printMembers() {
         System.out.println(controller.printMembers());
     }
-
+//METODE TIL AT VÆLGE HVEM DER SKAL REDIGERES
     private void editMember() {
         System.out.print("Enter the name of the member you want to edit: ");
         String name = scanner.nextLine();
@@ -167,7 +165,7 @@ public class UserInterface {
         }
         controller.saveMemberList();
     }
-
+//METODE TIL AT REDIGERE MEMBERS INFORMATION (UNDTAGEN UNIKT ID)
     private void editHelper(Member member) {
         System.out.print("Enter the new name of the member: ");
         String name = scanner.nextLine();
@@ -190,7 +188,7 @@ public class UserInterface {
 
         System.out.println("Member edited successfully");
     }
-
+//'SWITCH-CASE' TIL FORSKELLIGE SORTERING AF MEMBERS
     private void sortMembers() {
         boolean running = false;
         while (!running) {
@@ -232,7 +230,7 @@ public class UserInterface {
             }
         }
     }
-
+//METODE TIL AT SEARCHE EFTER ET MEMBER
     private void findMember() {
         scanner.nextLine();
         System.out.println("Enter the name of the member you want to find");

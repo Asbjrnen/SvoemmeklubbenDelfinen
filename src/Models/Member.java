@@ -7,6 +7,7 @@ public class Member {
     private String svimtype;
     private String membertype;
 
+    // KONSTRUKTØR TIL INITIALISERING AF MEDLEMMER I KLUBBEN
     public Member(String name, int age, String svimtype, String membertype, int id) {
         this.id = id;
         this.name = name;
@@ -14,12 +15,12 @@ public class Member {
         this.svimtype = svimtype;
         this.membertype = membertype;
     }
+
+    // GETTERS OG SETTERS FOR MEMBERS
     public int getId() {
         return id;
     }
-    public void setId(int id) {
-        this.id = id;
-    }
+
     public String getName() {
         return name;
     }
@@ -46,6 +47,8 @@ public class Member {
     public void setMembertype(String membertype) {
         this.membertype = membertype;
     }
+
+    // OVERRIDE AF 'toString()' FOR AT RETURNERE INFO OM MEDLEMMER
     @Override
     public String toString() {
     return /*"Id: " + id +*/ "Name: " + name + ", Age: " + age + ", Svimtype: " + svimtype + ", Membertype: " + membertype;

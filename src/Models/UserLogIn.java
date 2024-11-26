@@ -1,23 +1,23 @@
 package Models;
 
 public class UserLogIn {
+    //instansvariabler
     private String username;
     private String password;
 
+    //konstruktør til initialisering af userLogIn
     public UserLogIn(String username, String password) {
         this.username = username;
         this.password = password;
     }
+
+    //getters
     public String getUsername() {
         return username;
     }
-    public void setUsername(String username) {
-        this.username = username;
-    }
+
     public String getPassword() {
         return password;
     }
-    public void setPassword(String password) {
-        this.password = password;
-    }
+
 }

@@ -20,6 +20,7 @@ public class MemberList {
         return members;
     }
 
+    // SØGER EFTER MEDLEMMERS EFTERNAVN
     public ArrayList<Member> searchMembers(String name) {
         ArrayList<Member> searchResult = new ArrayList<>();
         for (Member member : members) {
@@ -30,6 +31,7 @@ public class MemberList {
         return searchResult;
     }
 
+    // RETURNERER EN STRING MED ALLE MEDLEMMER
     public String printMembers() {
         String membersString = "";
         if (members.isEmpty()) {
@@ -42,6 +44,7 @@ public class MemberList {
         return membersString;
     }
 
+    // FINDER OG RETURNERER ET SPECIFIKT MEDLEM VIA NAVN
     public String findMember(String name) {
         String membersString = "";
         for (Member member : members) {
