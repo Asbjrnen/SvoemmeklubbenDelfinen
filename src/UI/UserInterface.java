@@ -241,3 +241,86 @@ public class UserInterface {
     }
 
 }
+/* package UI;
+
+import Data_source.LoginSystem;
+
+import java.util.Scanner;
+
+public class UserInterface {
+    private Scanner scanner;
+    private LoginSystem loginSystem;
+
+    public UserInterface() {
+        this.scanner = new Scanner(System.in);
+        this.loginSystem = new LoginSystem();
+    }
+
+    public void startProgram() {
+        System.out.println("Welcome to Svømmeklubben Delfinen.");
+        String role = login();
+
+        if (role != null) {
+            boolean exit = false;
+            while (!exit) {
+                switch (role.toLowerCase()) {
+                    case "formand":
+                        showFormandMenu();
+                        break;
+                    case "kasserer":
+                        showKassererMenu();
+                        break;
+                    case "træner":
+                        showTrænerMenu();
+                        break;
+                    case "forælder":
+                        showForælderMenu();
+                        break;
+                    default:
+                        System.out.println("Unknown role.");
+                        exit = true;
+                }
+            }
+        } else {
+            System.out.println("Login failed. Exiting program.");
+        }
+    }
+
+    private String login() {
+        System.out.print("Enter username: ");
+        String username = scanner.nextLine();
+
+        System.out.print("Enter password: ");
+        String password = scanner.nextLine();
+
+        return loginSystem.login(username, password);
+    }
+
+    private void showFormandMenu() {
+        System.out.println("Formand Menu:");
+        System.out.println("1) Add member");
+        System.out.println("2) Remove member");
+        // Formandens handlinger...
+    }
+
+    private void showKassererMenu() {
+        System.out.println("Kasserer Menu:");
+        System.out.println("1) View kontingent");
+        System.out.println("2) Update kontingent status");
+        // Kassererens handlinger...
+    }
+
+    private void showTrænerMenu() {
+        System.out.println("Træner Menu:");
+        System.out.println("1) View svømmeres resultater");
+        System.out.println("2) Update træningsresultater");
+        // Trænerens handlinger...
+    }
+
+    private void showForælderMenu() {
+        System.out.println("Forælder Menu:");
+        System.out.println("1) View junior svømmer resultater");
+        // Forældrenes handlinger...
+    }
+}
+*/
