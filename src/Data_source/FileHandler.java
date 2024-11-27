@@ -23,7 +23,7 @@ public class FileHandler {
                 String name = words[0];
                 int age = Integer.parseInt(words[1]);
                 String svimtype = words[2];
-                String membertype = words[3];
+                boolean membertype = Boolean.parseBoolean(words[3]);
                 int id = Integer.parseInt(words[4]);
                 boolean junSen = Boolean.parseBoolean(words[5]);
                 boolean motKon = Boolean.parseBoolean(words[6]);
@@ -58,7 +58,8 @@ public class FileHandler {
         try {
             FileWriter fileWriter = new FileWriter("Memberlist.txt");
             for(Member member : memberList){
-                fileWriter.write(member.getName()+","+member.getAge()+","+member.getSvimType()+","+member.getMembertype()+"\n");
+                fileWriter.write(member.getName()+","+member.getAge()+","+member.getSvimType()+","+member.getMembertype()+","
+                        +member.getId()+","+member.getKontigent()+","+member.isRes()+"\n");
             }
             fileWriter.close();
 

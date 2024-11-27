@@ -7,6 +7,6 @@ import java.util.Comparator;
 public class MemberTComparator implements Comparator<Member> {
     @Override
     public int compare(Member o1, Member o2) {
-        return Integer.compare(o1.getMembertype().compareToIgnoreCase(o2.getMembertype()),0);
-    }
+        return Boolean.valueOf(o1.getMembertype()).compareTo(Boolean.valueOf(o2.getMembertype()));
+}
 }

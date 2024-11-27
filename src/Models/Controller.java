@@ -106,4 +106,12 @@ public class Controller {
         return false;
     }
 
+    public double kontigentBeregner(){
+        return memberList.kontingentBeregner();
+    }
+
+    public String getRestance(){
+        return memberList.getRestance();
+    }
+
 }

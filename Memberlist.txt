@@ -1,2 +1,1 @@
-abe,5,abe,abe
-john,5,kok,ko
+ble,24,floater,true,73548339,1600.0,true

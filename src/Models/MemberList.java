@@ -54,4 +54,22 @@ public class MemberList {
         }
         return membersString;
     }
+
+    // regner total kontigent ud for svømmeklubben
+    public double kontingentBeregner() {
+        double totalKontigent = 0.0;
+
+        for (Member member : members){
+           totalKontigent += member.getKontigent();
+        }
+        return totalKontigent;
+    }
+
+    public String getRestance(){
+        String printString = "Medlemmer i restance: \n";
+        for (Member member : members){
+            printString += member + ", restance: " + member.getKontigent() + " kr.\n";
+        }
+        return printString;
+    }
 }

@@ -17,7 +17,8 @@ public class UserInterface {
         this.scanner = new Scanner(System.in);
         this.controller = new Controller();
     }
-//STARTER PROGRAMMET 
+
+    //STARTER PROGRAMMET
     public void Startprogram() {
 
         controller.readMemberList();
@@ -55,7 +56,8 @@ public class UserInterface {
             }
         }
     }
-//RESPONDERER TIL USERS INPUT OM DET ER KORREKT ELLER EJ
+
+    //RESPONDERER TIL USERS INPUT OM DET ER KORREKT ELLER EJ
     private int getIntInput(String userInput) {
         while (true) {
             System.out.print(userInput);
@@ -67,23 +69,25 @@ public class UserInterface {
             }
         }
     }
-//RESPONDERER TIL USERS LOGIN OM DER ER TILLADELSE FOR ADGANG
-    private boolean checkLogIn(String username, String password){
+
+    //RESPONDERER TIL USERS LOGIN OM DER ER TILLADELSE FOR ADGANG
+    private boolean checkLogIn(String username, String password) {
         boolean logIn = false;
         boolean foundUser = false;
-        for (UserLogIn userLogIn : controller.readLogInFile()){
+        for (UserLogIn userLogIn : controller.readLogInFile()) {
             if (userLogIn.getUsername().equalsIgnoreCase(username) && userLogIn.getPassword().equalsIgnoreCase(password)) {
                 foundUser = true;
             }
         }
-        if (foundUser == true){
+        if (foundUser == true) {
             logIn = true;
-        } else if (foundUser == false){
+        } else if (foundUser == false) {
             System.out.println("Invalid username or password. Please try again.");
         }
         return logIn;
     }
-//TILFØJER ET MEMBER TIL MEMBERLIST.TXT
+
+    //TILFØJER ET MEMBER TIL MEMBERLIST.TXT
     private void addMember() {
         scanner.nextLine();
         System.out.println("Please enter the name of the member you would like to add: ");
@@ -92,8 +96,12 @@ public class UserInterface {
         System.out.println("Please enter the type of swimmer the member you would like to add is: ");
         String swimType = scanner.nextLine();
 
-        System.out.println("Please enter the type of member you would like to add: ");
-        String memType = scanner.nextLine();
+        boolean memType = getIntInput("Please enter the type of member you would like to add: \"\\n 1 is for aktiv, 2 is for passiv ") == 1;
+        if (memType){
+            System.out.println("Aktiv");
+        }else {
+            System.out.println("Passiv");
+        }
 
         int age = getIntInput("Please enter the age of the member you would like to add: ");
 
@@ -101,17 +109,33 @@ public class UserInterface {
         int id = generateUniqueID();
 
         boolean junSen = getIntInput("\"Please enter whether the member is a senior or a junior: \"\\n 1 for junior or 0 for senior\"") == 1;
+        if (junSen) {
+            System.out.println("junior");
+        } else {
+            System.out.println("senior");
+        }
+
 
         boolean motKon = getIntInput("Please enter the activity form your member is using: \"\\n 1 for motionist or 0 for konkurrencesvømmer\"") == 1;
+        if (motKon) {
+            System.out.println("Motionist");
+        } else {
+            System.out.println("Konkurrencesvømmer");
+        }
 
-        boolean isRes = getIntInput("Please enter wether the member is in restance or not: \"\\n 1 for yes or 2 for no\"") == 1;
-
+        boolean isRes = getIntInput("Please enter whether the member is in restance or not: \"\\n 1 for yes or 2 for no\"") == 1;
+        if (isRes) {
+            System.out.println("Er i restance");
+        } else {
+            System.out.println("Er ikke i restance");
+        }
 
         System.out.println("MemberID: " + id);
         controller.addMember(new Member(name, age, swimType, memType, id, junSen, motKon, isRes));
     }
-//GENERER ET RANDOM ID TIL ET OPRETTET MEMBER
-    private int generateUniqueID(){
+
+    //GENERER ET RANDOM ID TIL ET OPRETTET MEMBER
+    private int generateUniqueID() {
         Random rand = new Random();
         int max = 99999999, min = 10000000;
         int id;
@@ -127,7 +151,7 @@ public class UserInterface {
     }
 
 
-//SYSTEMETS RESPONS TIL USER DER VIL FJERNE MEMBER
+    //SYSTEMETS RESPONS TIL USER DER VIL FJERNE MEMBER
     private void removeMember() {
         scanner.nextLine();
         System.out.print("Enter the name of the member you want to delete: ");
@@ -136,11 +160,13 @@ public class UserInterface {
 
         System.out.println("Member deleted successfully");
     }
-//METODE TIL AT UDPRINTE LISTE AF MEMBERS
+
+    //METODE TIL AT UDPRINTE LISTE AF MEMBERS
     private void printMembers() {
         System.out.println(controller.printMembers());
     }
-//METODE TIL AT VÆLGE HVEM DER SKAL REDIGERES
+
+    //METODE TIL AT VÆLGE HVEM DER SKAL REDIGERES
     private void editMember() {
         System.out.print("Enter the name of the member you want to edit: ");
         String name = scanner.nextLine();
@@ -168,7 +194,8 @@ public class UserInterface {
         }
         controller.saveMemberList();
     }
-//METODE TIL AT REDIGERE MEMBERS INFORMATION (UNDTAGEN UNIKT ID)
+
+    //METODE TIL AT REDIGERE MEMBERS INFORMATION (UNDTAGEN UNIKT ID)
     private void editHelper(Member member) {
         System.out.print("Enter the new name of the member: ");
         String name = scanner.nextLine();
@@ -180,27 +207,30 @@ public class UserInterface {
         if (!swimType.isEmpty()) {
             member.setSvimtype(swimType);
         }
-        System.out.println("Enter the new type of member: ");
-        String memType = scanner.nextLine();
-        if (!memType.isEmpty()) {
-            member.setMembertype(memType);
+        System.out.println("Enter the new type of member: 1 is for aktiv, 2 is for passiv");
+        boolean aktiv = true;
+        if (scanner.nextInt() == 1) {
+            aktiv = true;
+        } else {
+            aktiv = false;
         }
+
         System.out.println("Enter the new age of the member: ");
         int age = getIntInput("");
         member.setAge(age);
 
         System.out.println("Enter the type of team the member you want to edit is on, 1 for junior, 2 for senior: ");
         boolean junior = true;
-        if (scanner.nextInt() == 1){
+        if (scanner.nextInt() == 1) {
             junior = true;
-        } else{
+        } else {
             junior = false;
         }
         member.setJunSen(junior);
 
         System.out.println("Enter the type activity form for the member you want to edit, 1 for motionist, 2 for konkurrencesvømmer: ");
         boolean motionist = true;
-        if (scanner.nextInt() == 1){
+        if (scanner.nextInt() == 1) {
             motionist = true;
         } else {
             motionist = false;
@@ -209,7 +239,8 @@ public class UserInterface {
 
         System.out.println("Member edited successfully");
     }
-//'SWITCH-CASE' TIL FORSKELLIGE SORTERING AF MEMBERS
+
+    //'SWITCH-CASE' TIL FORSKELLIGE SORTERING AF MEMBERS
     private void sortMembers() {
         boolean running = false;
         while (!running) {
@@ -251,7 +282,8 @@ public class UserInterface {
             }
         }
     }
-//METODE TIL AT SEARCHE EFTER ET MEMBER
+
+    //METODE TIL AT SEARCHE EFTER ET MEMBER
     private void findMember() {
         scanner.nextLine();
         System.out.println("Enter the name of the member you want to find");
@@ -259,7 +291,7 @@ public class UserInterface {
         System.out.println(controller.findMember(name));
     }
 
-    private void formandUserInterface(){
+    private void formandUserInterface() {
         boolean exit = false;
         while (!exit) {
             System.out.println("-------------------------------------------------");
@@ -285,14 +317,13 @@ public class UserInterface {
             }
         }
     }
-    private void kassererUserInterface(){
+
+    private void kassererUserInterface() {
         boolean exit = false;
         while (!exit) {
             System.out.println("-------------------------------------------------");
             System.out.println("1) Information om diverse kontingenter");
-            //Skal måske lede videre til specifik kontingent? (Skal kunne baseres på aldersrabat, aktivitetsform og medlemskabstype)
             System.out.println("2) Generation af samlet oversigt af forventede kontingenter");
-            //Samlede ÅRLIGE kontingent - til vurdering af klubbens økonomi
             System.out.println("3) Informtion om medlemmer i restance");
             //Til opfølging af ubetalte kontingenter
             System.out.println("4) Exit");
@@ -301,27 +332,15 @@ public class UserInterface {
 
             int choice = getIntInput("Choose an option:");
             switch (choice) {/*
-                case 1 -> ;
-                case 2 -> ;
-                case 3 -> ;*/
+                case 1 -> ;*/
+                case 2 -> System.out.println("Total kontigent: " + controller.kontigentBeregner() + " kr.");
+                case 3 -> System.out.println(controller.getRestance());
                 case 4 -> exit = true;
             }
         }
     }
-    private double kontingentBeregner(int junior, int senior, int senior60, int passiv){
-        double juniorKon = 1000.0;
-        double senKon = 1600.0;
-        double sen60 = 0.25;
-        double passivKon = 500.0;
 
-        double junTotal = junior * juniorKon;
-        double senTotal = senior * senKon;
-        double passivTotal = passiv * passivKon;
-        double senTotal = senior60 * (senKon* (1-sen60));
-
-
-    }
-    private void trænerUserInterface(){
+    private void trænerUserInterface() {
         boolean exit = false;
         while (!exit) {
             System.out.println("-------------------------------------------------");
@@ -337,6 +356,7 @@ public class UserInterface {
             System.out.println("7) Information om juniorhold");
             System.out.println("8) Information om de bedste fire svømmere fra hvert hold");
             //Skal indeholde information om de fire bedste svømmere fra hvert hold (Tid, placering, alder)
+            System.out.println("9) Exit");
             System.out.println("-------------------------------------------------");
 
 
@@ -354,7 +374,8 @@ public class UserInterface {
             }
         }
     }
-    private void forældreUserInterface(){
+
+    private void forældreUserInterface() {
         boolean exit = false;
         while (!exit) {
             System.out.println("-------------------------------------------------");
