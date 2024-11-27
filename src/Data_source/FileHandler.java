@@ -25,8 +25,11 @@ public class FileHandler {
                 String svimtype = words[2];
                 String membertype = words[3];
                 int id = Integer.parseInt(words[4]);
+                boolean junSen = Boolean.parseBoolean(words[5]);
+                boolean motKon = Boolean.parseBoolean(words[6]);
+                boolean isRes = Boolean.parseBoolean(words[7]);
 
-                memberList.add(new Member(name, age, svimtype, membertype, id));
+                memberList.add(new Member(name, age, svimtype, membertype, id, junSen, motKon, isRes));
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
