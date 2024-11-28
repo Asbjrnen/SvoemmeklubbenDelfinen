@@ -4,10 +4,8 @@ import Models.Controller;
 import Models.Member;
 import Models.UserLogIn;
 
-import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.util.Random;
-import java.util.Scanner;
+import java.time.LocalDate;
+import java.util.*;
 
 public class UserInterface {
     private Scanner scanner;
@@ -137,13 +135,6 @@ public class UserInterface {
         System.out.println("A numerical ID will now be generated for the member");
         int id = generateUniqueID();
 
-        boolean junSen = getIntInput("\"Please enter whether the member is a senior or a junior: \"\\n 1 for junior or 0 for senior\"") == 1;
-        if (junSen) {
-            System.out.println("junior");
-        } else {
-            System.out.println("senior");
-        }
-
         boolean motKon = getIntInput("Please enter the activity form your member is using: \"\\n 1 for motionist or 0 for konkurrencesvømmer\"") == 1;
         if (motKon) {
             System.out.println("Motionist");
@@ -159,7 +150,7 @@ public class UserInterface {
         }
 
         System.out.println("MemberID: " + id);
-        controller.addMember(new Member(name, age, swimType, memType, id, junSen, motKon, isRes));
+        controller.addMember(new Member(name, age, swimType, memType, id, motKon, isRes));
     }
 
     //GENERER ET RANDOM ID TIL ET OPRETTET MEMBER
@@ -246,15 +237,6 @@ public class UserInterface {
         System.out.println("Enter the new age of the member: ");
         int age = getIntInput("");
         member.setAge(age);
-
-        System.out.println("Enter the type of team the member you want to edit is on, 1 for junior, 2 for senior: ");
-        boolean junior = true;
-        if (scanner.nextInt() == 1) {
-            junior = true;
-        } else {
-            junior = false;
-        }
-        member.setJunSen(junior);
 
         System.out.println("Enter the type activity form for the member you want to edit, 1 for motionist, 2 for konkurrencesvømmer: ");
         boolean motionist = true;
@@ -353,7 +335,6 @@ public class UserInterface {
             System.out.println("1) Information om diverse kontingenter");
             System.out.println("2) Generation af samlet oversigt af forventede kontingenter");
             System.out.println("3) Informtion om medlemmer i restance");
-            //Til opfølging af ubetalte kontingenter
             System.out.println("4) Exit");
             System.out.println("-------------------------------------------------");
 
@@ -372,28 +353,33 @@ public class UserInterface {
         boolean exit = false;
         while (!exit) {
             System.out.println("-------------------------------------------------");
-            System.out.println("1) Vælg en svømmedisciplin til et specifikt medlem");
+            System.out.println("1) Information om svømmere");
             System.out.println("2) Oversigt af svømmernes discipliner og resultater");
-            System.out.println("3) Information om svømmere");
-            //Se trello for information (2. træner userstory)
-            System.out.println("4) Registrering af svømmeresulter inden for træning");
-            //Bedste træningsresultater med dato og tid
-            System.out.println("5) Registrering af konkurrenceresultator for svømmere");
-            //Svømmernes konkurrenceresultater, herunder; stævne, tid, dato og placering
-            System.out.println("6) Information om seniorhold");
-            System.out.println("7) Information om juniorhold");
-            System.out.println("8) Information om de bedste fire svømmere fra hvert hold");
-            //Skal indeholde information om de fire bedste svømmere fra hvert hold (Tid, placering, alder)
-            System.out.println("9) Exit");
+            System.out.println("3) Registrering af svømmeresulter inden for træning");
+            System.out.println("4) Registrering af svømmers konkurrence resultater");
+            System.out.println("5) Information om de bedste fem svømmere for hver disciplin");
+            System.out.println("6) Exit");
             System.out.println("-------------------------------------------------");
 
 
             int choice = getIntInput("Choose an option:");
-            switch (choice) {/*
-                case 1 -> ;
-                case 2 -> ;
-                case 3 -> ;
-                case 4 -> ;
+            switch (choice) {
+                case 1 -> {
+                    while (true) {
+                        System.out.println("1) Junior konkurrencehold");
+                        System.out.println("2) Senior konkurrencehold");
+
+                        int choice2 = getIntInput("choose an option");
+                        switch (choice2) {
+                            case 1 -> System.out.println(controller.printJuniorElites());
+                            case 2 -> System.out.println(controller.printSeniorElites());
+                        }
+                        break;
+                    }
+                }
+                //case 2 -> ;
+                case 3 -> addTrainingInfo();
+                /*case 4 -> ;
                 case 5 -> ;
                 case 6 -> ;
                 case 7 -> ;
@@ -402,6 +388,40 @@ public class UserInterface {
             }
         }
     }
+
+    private void addTrainingInfo() {
+        System.out.print("Enter navnet på det medlem du vil registrere træningsresultater til: ");
+        String name = scanner.nextLine();
+        int counter = 0;
+
+        ArrayList<Member> memberArrayList = controller.searchEliteMembers(name);
+
+        if (!memberArrayList.isEmpty()) {
+            for (Member member : memberArrayList) {
+                counter++;
+                System.out.println(counter + ". " + member);
+            }
+            if (memberArrayList.size() >= 2) {
+                int input = getIntInput("Vælg et nummer der referer til det medlem du ønsker at ændre: \n");
+                Member memberToEdit = memberArrayList.get(input - 1);
+                scanner.nextLine();
+                System.out.println("Indtast tiden fra træningen");
+                String string = scanner.nextLine();
+                LocalDate date = LocalDate.now();
+                memberToEdit.addTrainingResults(date + " " + memberToEdit.getSvimType() + " tid: " + string);
+            } else {
+                Member memberToEdit = memberArrayList.getFirst();
+                System.out.println("Indtast tiden fra træningen");
+                String string = scanner.nextLine();
+                LocalDate date = LocalDate.now();
+                memberToEdit.addTrainingResults(date + " " + memberToEdit.getSvimType() + " tid: " + string);
+            }
+        } else {
+            System.out.println("There are no members called that ");
+        }
+        controller.saveMemberList();
+    }
+
 
     private void forældreUserInterface() {
         boolean exit = false;
@@ -431,8 +451,6 @@ public class UserInterface {
     }
 }
 
-
-
 /* package UI;
 
 import Data_source.LoginSystem;
@@ -447,143 +465,4 @@ public class UserInterface {
         this.scanner = new Scanner(System.in);
         this.loginSystem = new LoginSystem();
     }
-
-    public void startProgram() {
-        System.out.println("Welcome to Svømmeklubben Delfinen.");
-        String role = login();
-
-        if (role != null) {
-            boolean exit = false;
-            while (!exit) {
-                switch (role.toLowerCase()) {
-                    case "formand":
-                        showFormandMenu();
-                        break;
-                    case "kasserer":
-                        showKassererMenu();
-                        break;
-                    case "træner":
-                        showTrænerMenu();
-                        break;
-                    case "forælder":
-                        showForælderMenu();
-                        break;
-                    default:
-                        System.out.println("Unknown role.");
-                        exit = true;
-                }
-            }
-        } else {
-            System.out.println("Login failed. Exiting program.");
-        }
-    }
-
-    private String login() {
-        System.out.print("Enter username: ");
-        String username = scanner.nextLine();
-
-        System.out.print("Enter password: ");
-        String password = scanner.nextLine();
-
-        return loginSystem.login(username, password);
-    }
-
-    private void showFormandMenu() {
-        System.out.println("Formand Menu:");
-        System.out.println("1) Add member");
-        System.out.println("2) Remove member");
-        // Formandens handlinger...
-    }
-
-    private void showKassererMenu() {
-        System.out.println("Kasserer Menu:");
-        System.out.println("1) View kontingent");
-        System.out.println("2) Update kontingent status");
-        // Kassererens handlinger...
-    }
-
-    private void showTrænerMenu() {
-        System.out.println("Træner Menu:");
-        System.out.println("1) View svømmeres resultater");
-        System.out.println("2) Update træningsresultater");
-        // Trænerens handlinger...
-    }
-
-    private void showForælderMenu() {
-        System.out.println("Forælder Menu:");
-        System.out.println("1) View junior svømmer resultater");
-        // Forældrenes handlinger...
-    }
-}
-*/
-
-///////////////////////////////////////////////////////////////////////////
-/*
-private void addMember() {
-    scanner.nextLine();
-    System.out.println("Please enter the name of the member you would like to add: ");
-    String name = scanner.nextLine();
-
-    String swimType = "";
-    System.out.println("Please enter the type of swimmer the member you would like to add is: ");
-    boolean exit = false;
-    while (!exit) {
-        System.out.println("-------------------------------------------------");
-        System.out.println("1) Crawl");
-        System.out.println("2) Rygcrawl");
-        System.out.println("3) Bryst");
-        System.out.println("4) Butterfly");
-        System.out.println("-------------------------------------------------");
-
-
-        int choice = getIntInput("Choose an option:");
-        switch (choice) {
-            case 1 -> {
-                swimType = "crawl";
-                exit = true;
-            }
-            case 2 -> {
-                swimType = "rygcrawl";
-                exit = true;
-            }
-            case 3 -> {
-                swimType = "bryst";
-                exit = true;
-            }
-            case 4 -> {
-                swimType = "butterfly";
-                exit = true;
-            }
-        }
-    }
-    System.out.println("Please enter the type of member you would like to add: ");
-    String memType = "";
-    boolean exit2 = false;
-    while (!exit2) {
-        System.out.println("-------------------------------------------------");
-        System.out.println("1) Aktiv");
-        System.out.println("2) Passiv");
-        System.out.println("-------------------------------------------------");
-
-        int choice = getIntInput("Choose an option:");
-        switch (choice) {
-            case 1 -> {
-                memType = "aktiv";
-                exit2 = true;
-            }
-            case 2 -> {
-                memType = "passiv";
-                exit2 = true;
-            }
-        }
-    }
-
-    int age = getIntInput("Please enter the age of the member you would like to add: ");
-
-    System.out.println("A numerical ID will now be generated for the member");
-    int id = generateUniqueID();
-
-    System.out.println("MemberID: " + id);
-    controller.addMember(new Member(name, age, swimType, memType, id));
-}
 */

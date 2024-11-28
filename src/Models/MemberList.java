@@ -20,10 +20,25 @@ public class MemberList {
         return members;
     }
 
-    // SØGER EFTER MEDLEMMERS EFTERNAVN
+    // SØGER EFTER MEDLEMMERS
     public ArrayList<Member> searchMembers(String name) {
         ArrayList<Member> searchResult = new ArrayList<>();
         for (Member member : members) {
+            if (member.getName().toLowerCase().contains(name.toLowerCase())) {
+                searchResult.add(member);
+            }
+        }
+        return searchResult;
+    }
+
+    public ArrayList<Member> searchEliteMembers(String name) {
+        ArrayList<Member> searchResult = new ArrayList<>();
+        for (Member member : getJuniorElites()) {
+            if (member.getName().toLowerCase().contains(name.toLowerCase())) {
+                searchResult.add(member);
+            }
+        }
+        for (Member member : getSeniorElites()) {
             if (member.getName().toLowerCase().contains(name.toLowerCase())) {
                 searchResult.add(member);
             }
@@ -59,17 +74,57 @@ public class MemberList {
     public double kontingentBeregner() {
         double totalKontigent = 0.0;
 
-        for (Member member : members){
-           totalKontigent += member.getKontigent();
+        for (Member member : members) {
+            totalKontigent += member.getKontigent();
         }
         return totalKontigent;
     }
 
-    public String getRestance(){
+    public String getRestance() {
         String printString = "Medlemmer i restance: \n";
-        for (Member member : members){
+        for (Member member : members) {
             printString += member + ", restance: " + member.getKontigent() + " kr.\n";
         }
         return printString;
+    }
+
+    public ArrayList<Member> getJuniorElites() {
+        ArrayList<Member> juniorElites = new ArrayList<>();
+        for (Member member : members) {
+            if (member.getAge() < 18) {
+                if (!member.isMotKon()) {
+                    juniorElites.add(member);
+                }
+            }
+        }
+        return juniorElites;
+    }
+
+    public String printJuniorElites() {
+        String membersString = "";
+        for (Member member : getJuniorElites()) {
+            membersString += member + "\n";
+        }
+        return membersString;
+    }
+
+    public String printSeniorELite() {
+        String membersString = "";
+        for (Member member : getSeniorElites()) {
+            membersString += member + "\n";
+        }
+        return membersString;
+    }
+
+    public ArrayList<Member> getSeniorElites() {
+        ArrayList<Member> seniorElites = new ArrayList<>();
+        for (Member member : members) {
+            if (member.getAge() > 18) {
+                if (!member.isMotKon()) {
+                    seniorElites.add(member);
+                }
+            }
+        }
+        return seniorElites;
     }
 }

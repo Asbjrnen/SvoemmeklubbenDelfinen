@@ -114,4 +114,20 @@ public class Controller {
         return memberList.getRestance();
     }
 
+    public String printJuniorElites(){
+        return memberList.printJuniorElites();
+    }
+
+    public String printSeniorElites(){
+        return memberList.printSeniorELite();
+    }
+
+    public void addTrainingResult(String trainingResult){
+
+    }
+
+    public ArrayList<Member> searchEliteMembers(String name){
+        return memberList.searchEliteMembers(name);
+    }
+
 }

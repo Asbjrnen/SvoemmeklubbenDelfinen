@@ -1,1 +1,4 @@
-ble,24,floater,true,73548339,1600.0,true
+test,12,crawl,true,10561584,false,false,null;2024-11-28, crawl tid: 20 sekunder
+testi,24,rygcrawl,true,33635067,false,false,null,null
+jørgen,68,butterfly,false,65289013,false,true,null,null
+gbfv,54,rygcrawl,false,60509041,true,false,null,null

@@ -2,7 +2,6 @@ package Data_source;
 
 import Models.Member;
 import Models.UserLogIn;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.util.ArrayList;
@@ -25,11 +24,12 @@ public class FileHandler {
                 String svimtype = words[2];
                 boolean membertype = Boolean.parseBoolean(words[3]);
                 int id = Integer.parseInt(words[4]);
-                boolean junSen = Boolean.parseBoolean(words[5]);
-                boolean motKon = Boolean.parseBoolean(words[6]);
-                boolean isRes = Boolean.parseBoolean(words[7]);
+                boolean motKon = Boolean.parseBoolean(words[5]);
+                boolean isRes = Boolean.parseBoolean(words[6]);
+                String trainingResult = words[7];
+                String competitionResult = words[8];
 
-                memberList.add(new Member(name, age, svimtype, membertype, id, junSen, motKon, isRes));
+                memberList.add(new Member(name, age, svimtype, membertype, id, motKon, isRes, trainingResult, competitionResult));
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -59,7 +59,7 @@ public class FileHandler {
             FileWriter fileWriter = new FileWriter("Memberlist.txt");
             for(Member member : memberList){
                 fileWriter.write(member.getName()+","+member.getAge()+","+member.getSvimType()+","+member.getMembertype()+","
-                        +member.getId()+","+member.getKontigent()+","+member.isRes()+"\n");
+                        +member.getId()+","+member.isMotKon()+","+member.isRes()+","+member.getTrainingResults()+","+member.getCompetitionResults()+"\n");
             }
             fileWriter.close();
 

@@ -1,26 +1,42 @@
 package Models;
 
+import java.util.ArrayList;
+
 public class Member {
     private int id;
     private String name;
     private int age;
     private String svimtype;
     private boolean membertype;
-    private boolean junSen;
     private boolean motKon;
     private boolean isRes;
+    private String trainingResults;
+    private String competitionResults;
 
     // KONSTRUKTØR TIL INITIALISERING AF MEDLEMMER I KLUBBEN
-    public Member(String name, int age, String svimtype, boolean membertype, int id, boolean junSen, boolean motKon, boolean isRes) {
+    public Member(String name, int age, String svimtype, boolean membertype, int id, boolean motKon, boolean isRes) {
         this.isRes = isRes;
         this.id = id;
         this.name = name;
         this.age = age;
         this.svimtype = svimtype;
         this.membertype = membertype;
-        this.junSen = junSen;
         this.motKon = motKon;
     }
+
+    public Member(String name, int age, String svimtype, boolean membertype, int id, boolean motKon, boolean isRes,
+                  String trainingResults, String competitionResults) {
+        this.isRes = isRes;
+        this.id = id;
+        this.name = name;
+        this.age = age;
+        this.svimtype = svimtype;
+        this.membertype = membertype;
+        this.motKon = motKon;
+        this.trainingResults = trainingResults;
+        this.competitionResults = competitionResults;
+    }
+
 
     // GETTERS OG SETTERS FOR MEMBERS
     public int getId() {
@@ -61,14 +77,6 @@ public class Member {
         this.membertype = aktiv;
     }
 
-    public boolean isJunSen() {
-        return junSen;
-    }
-
-    public void setJunSen(boolean junior) {
-        this.junSen = junior;
-    }
-
     public boolean isMotKon() {
         return motKon;
     }
@@ -77,13 +85,25 @@ public class Member {
         this.motKon = motion;
     }
 
-    ///////
     public boolean isRes() {
         return isRes;
     }
 
     public void setRes(boolean restance) {
         isRes = restance;
+    }
+    public void addTrainingResults(String trainingResults) {
+        this.trainingResults += ";" + trainingResults;
+    }
+    public String getTrainingResults() {
+        return trainingResults;
+    }
+
+    public void setCompetitionResults(String competitionResults) {
+        this.competitionResults += competitionResults + ";";
+    }
+    public String getCompetitionResults() {
+        return competitionResults;
     }
 
     public double getKontigent() {
@@ -112,7 +132,7 @@ public class Member {
     @Override
     public String toString() {
         String jS = "";
-        if (junSen) {
+        if (age < 18) {
             jS = "junior";
         } else {
             jS = "senior";
