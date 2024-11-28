@@ -93,13 +93,42 @@ public class UserInterface {
         System.out.println("Please enter the name of the member you would like to add: ");
         String name = scanner.nextLine();
 
+        String swimType = "";
         System.out.println("Please enter the type of swimmer the member you would like to add is: ");
-        String swimType = scanner.nextLine();
+        boolean exit = false;
+        while (!exit) {
+            System.out.println("-------------------------------------------------");
+            System.out.println("1) Crawl");
+            System.out.println("2) Rygcrawl");
+            System.out.println("3) Bryst");
+            System.out.println("4) Butterfly");
+            System.out.println("-------------------------------------------------");
+
+            int choice = getIntInput("Choose an option:");
+            switch (choice) {
+                case 1 -> {
+                    swimType = "crawl";
+                    exit = true;
+                }
+                case 2 -> {
+                    swimType = "rygcrawl";
+                    exit = true;
+                }
+                case 3 -> {
+                    swimType = "bryst";
+                    exit = true;
+                }
+                case 4 -> {
+                    swimType = "butterfly";
+                    exit = true;
+                }
+            }
+        }
 
         boolean memType = getIntInput("Please enter the type of member you would like to add: \"\\n 1 is for aktiv, 2 is for passiv ") == 1;
-        if (memType){
+        if (memType) {
             System.out.println("Aktiv");
-        }else {
+        } else {
             System.out.println("Passiv");
         }
 
@@ -114,7 +143,6 @@ public class UserInterface {
         } else {
             System.out.println("senior");
         }
-
 
         boolean motKon = getIntInput("Please enter the activity form your member is using: \"\\n 1 for motionist or 0 for konkurrencesvømmer\"") == 1;
         if (motKon) {
