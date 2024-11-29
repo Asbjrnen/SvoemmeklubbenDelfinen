@@ -62,7 +62,7 @@ public class Member {
         return svimtype;
     }
 
-    public void setSwimType(String Svimtype) {
+    public void setSwimtype(String Svimtype) {
         this.svimtype = Svimtype;
     }
 
@@ -97,7 +97,7 @@ public class Member {
         return trainingResults;
     }
 
-    public void setCompetitionResults(String competitionResults) {
+    public void addCompetitionResults(String competitionResults) {
         this.competitionResults += competitionResults + ";";
     }
     public String getCompetitionResults() {

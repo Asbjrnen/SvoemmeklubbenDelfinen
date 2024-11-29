@@ -101,15 +101,12 @@ public class MemberList {
         return juniorElites;
     }
 
-    public ArrayList<Member> getTop5Swimmers(String swimType, boolean isJunior)
-    {
+    public ArrayList<Member> getTop5Swimmers(String swimType, boolean isJunior) {
         ArrayList<Member> filteredSwimmers = new ArrayList<>();
 
-        for (Member member : members)
-        {
+        for (Member member : members) {
             boolean matchesAgeGroup = isJunior ? (member.getAge() < 18) : (member.getAge() >= 18);
-            if (member.getSwimType().equalsIgnoreCase(swimType) && matchesAgeGroup)
-            {
+            if (member.getSwimType().equalsIgnoreCase(swimType) && matchesAgeGroup) {
                 filteredSwimmers.add(member);
             }
         }
@@ -144,5 +141,19 @@ public class MemberList {
             }
         }
         return seniorElites;
+    }
+
+    public ArrayList<Member> searchElites(String name) {
+        ArrayList<Member> searchResult = new ArrayList<>();
+        for (Member member : members) {
+            if (member.getName().toLowerCase().contains(name.toLowerCase())) {
+                if (!member.isMotKon()) {
+                    searchResult.add(member);
+
+                }
+
+            }
+        }
+        return searchResult;
     }
 }

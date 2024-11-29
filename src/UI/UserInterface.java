@@ -20,19 +20,7 @@ public class UserInterface {
     public void Startprogram() {
 
         controller.readMemberList();
-
-        boolean running = false;
-        while (!running) {
-            System.out.println("Enter username:");
-            String username = scanner.nextLine();
-            System.out.println("Enter password:");
-            String password = scanner.nextLine();
-
-            if (checkLogIn(username, password) == true) {
-                running = true;
-            }
-        }
-//REGISTER LISTEN TIL UDVIKLER TEAMET (AL INFORMATION ER TILGÆNGELIGT)
+        //REGISTER LISTEN TIL UDVIKLER TEAMET (AL INFORMATION ER TILGÆNGELIGT)
         boolean exit = false;
         while (!exit) {
             System.out.println("-------------------------------------------------");
@@ -49,11 +37,24 @@ public class UserInterface {
                 case 1 -> formandUserInterface();
                 case 2 -> kassererUserInterface();
                 case 3 -> trænerUserInterface();
-                case 4 -> forældreUserInterface();
+                //case 4 -> forældreUserInterface();
                 case 5 -> exit = true;
             }
         }
+
+        boolean running = false;
+        while (!running) {
+            System.out.println("Enter username:");
+            String username = scanner.nextLine();
+            System.out.println("Enter password:");
+            String password = scanner.nextLine();
+
+            if (checkLogIn(username, password) == true) {
+                running = true;
+            }
+        }
     }
+
 
     //RESPONDERER TIL USERS INPUT OM DET ER KORREKT ELLER EJ
     private int getIntInput(String userInput) {
@@ -66,23 +67,6 @@ public class UserInterface {
                 scanner.nextLine();
             }
         }
-    }
-
-    //RESPONDERER TIL USERS LOGIN OM DER ER TILLADELSE FOR ADGANG
-    private boolean checkLogIn(String username, String password) {
-        boolean logIn = false;
-        boolean foundUser = false;
-        for (UserLogIn userLogIn : controller.readLogInFile()) {
-            if (userLogIn.getUsername().equalsIgnoreCase(username) && userLogIn.getPassword().equalsIgnoreCase(password)) {
-                foundUser = true;
-            }
-        }
-        if (foundUser == true) {
-            logIn = true;
-        } else if (foundUser == false) {
-            System.out.println("Invalid username or password. Please try again.");
-        }
-        return logIn;
     }
 
     //TILFØJER ET MEMBER TIL MEMBERLIST.TXT
@@ -224,7 +208,7 @@ public class UserInterface {
         System.out.println("Enter the new type of swimmer the member is: ");
         String swimType = scanner.nextLine();
         if (!swimType.isEmpty()) {
-            member.setSwimType(swimType);
+            member.setSwimtype(swimType);
         }
         System.out.println("Enter the new type of member: 1 is for aktiv, 2 is for passiv");
         boolean aktiv = true;
@@ -379,15 +363,56 @@ public class UserInterface {
                 }
                 case 2 -> printAllSwimResults();
                 case 3 -> addTrainingInfo();
-                case 4 -> addCompetitionResults();
+                case 4 -> addKonkurrenceInfo();
                 case 5 -> showTop5Swimmers();
                 case 6 -> exit = true;
             }
         }
     }
 
+    private void printAllSwimResults() {
+        ArrayList<Member> members = controller.getMembers();
+
+        if (members.isEmpty()) {
+            System.out.println("Der er ingen medlemmer i systemet.");
+            return;
+        }
+
+        for (Member member : members) {
+            System.out.println("-------------------------------------------------");
+            System.out.println("Navn: " + member.getName());
+            System.out.println("Alder: " + member.getAge());
+            System.out.println("Disciplin: " + member.getSwimType());
+            System.out.println("Medlemstype: " + (member.getMembertype() ? "Aktiv" : "Passiv"));
+            System.out.println("Træningsresultater: ");
+
+            String trainingResults = member.getTrainingResults();
+            if (trainingResults == null || trainingResults.isEmpty()) {
+                System.out.println(" Ingen træningsresultater registreret.");
+            } else {
+                String[] results = trainingResults.split(";");
+                for (String result : results) {
+                    System.out.println("  " + result.trim());
+                }
+            }
+            System.out.println("Konkurrenceresultater: ");
+
+            String competitionResults = member.getCompetitionResults();
+            if (competitionResults == null || competitionResults.isEmpty()) {
+                System.out.println("  Ingen konkurrenceresultater registreret.");
+            } else {
+                String[] results = competitionResults.split(";");
+                for (String result : results) {
+                    System.out.println("  " + result.trim());
+                }
+            }
+            System.out.println("-------------------------------------------------");
+
+        }
+    }
+
     private void addTrainingInfo() {
-        System.out.print("Enter navnet på det medlem du vil registrere træningsresultater til: ");
+        System.out.print("Enter navnet på det medlem du vil registrere træningsresultater til:  \n");
         String name = scanner.nextLine();
         int counter = 0;
 
@@ -399,16 +424,16 @@ public class UserInterface {
                 System.out.println(counter + ". " + member);
             }
             if (memberArrayList.size() >= 2) {
-                int input = getIntInput("Vælg et nummer der referer til det medlem du ønsker at ændre: \n");
+                int input = getIntInput("Vælg et nummer der referer til det medlem du ønsker at ændre: ");
                 Member memberToEdit = memberArrayList.get(input - 1);
                 scanner.nextLine();
-                System.out.println("Indtast tiden fra træningen");
+                System.out.println("Indtast tiden fra træningen i sekunder:");
                 String string = scanner.nextLine();
                 LocalDate date = LocalDate.now();
                 memberToEdit.addTrainingResults(date + " " + memberToEdit.getSwimType() + " tid: " + string);
             } else {
                 Member memberToEdit = memberArrayList.getFirst();
-                System.out.println("Indtast tiden fra træningen");
+                System.out.println("Indtast tiden fra træningen i sekunder:");
                 String string = scanner.nextLine();
                 LocalDate date = LocalDate.now();
                 memberToEdit.addTrainingResults(date + " " + memberToEdit.getSwimType() + " tid: " + string);
@@ -419,8 +444,46 @@ public class UserInterface {
         controller.saveMemberList();
     }
 
-    private void showTop5Swimmers()
-    {
+    private void addKonkurrenceInfo() {
+        System.out.print("Enter navnet på det medlem du vil registrere konkurrenceresultater til:  \n");
+        String name = scanner.nextLine();
+        int counter = 0;
+
+        ArrayList<Member> memberArrayList = controller.searchEliteMembers(name);
+
+        if (!memberArrayList.isEmpty()) {
+            for (Member member : memberArrayList) {
+                counter++;
+                System.out.println(counter + ". " + member);
+            }
+            if (memberArrayList.size() >= 2) {
+                int input = getIntInput("Vælg et nummer der referer til det medlem du ønsker at ændre: ");
+                Member memberToEdit = memberArrayList.get(input - 1);
+                scanner.nextLine();
+                System.out.println("Indtast tiden fra konkurrencen i sekunder");
+                String string = scanner.nextLine();
+                LocalDate date = LocalDate.now();
+                System.out.println("Indtast navnet op stævnet der blev deltaget i: ");
+                String stævne = scanner.nextLine();
+                int placering = getIntInput("Indtast medlemmets placering i stævnet: ");
+                memberToEdit.addCompetitionResults(date + " " + memberToEdit.getSwimType() + " tid: " + string + "sekunder" + "Stævne: " + stævne + "Placering: " + placering);
+            } else {
+                Member memberToEdit = memberArrayList.getFirst();
+                System.out.println("Indtast tiden fra konkurrencen i sekunder:");
+                String string = scanner.nextLine();
+                LocalDate date = LocalDate.now();
+                System.out.println("Indtast navnet op stævnet der blev deltaget i: ");
+                String stævne = scanner.nextLine();
+                int placering = getIntInput("Indtast medlemmets placering i stævnet: ");
+                memberToEdit.addCompetitionResults(date + " " + memberToEdit.getSwimType() + " tid: " + string + "sekunder" + "Stævne: " + stævne + "Placering: " + placering);
+            }
+        } else {
+            System.out.println("There are no members called that ");
+        }
+        controller.saveMemberList();
+    }
+
+    private void showTop5Swimmers() {
         System.out.println("Vælg en svømmedisciplin:");
         System.out.println("1) Crawl");
         System.out.println("2) Rygcrawl");
@@ -430,14 +493,12 @@ public class UserInterface {
         String swimType = "";
         int choice = getIntInput("Vælg discplin: ");
 
-        switch (choice)
-        {
+        switch (choice) {
             case 1 -> swimType = "Crawl";
             case 2 -> swimType = "Rygcrawl";
             case 3 -> swimType = "Butterfly";
             case 4 -> swimType = "Brystsvømning";
-            default ->
-            {
+            default -> {
                 System.out.println("Ugyldigt valg.");
                 return;
             }
@@ -449,55 +510,31 @@ public class UserInterface {
 
         boolean isJunior = getIntInput("Vælg aldersgruppe: ") == 1;
         ArrayList<Member> top5 = controller.getMemberList().getTop5Swimmers(swimType, isJunior);
-        if (top5.isEmpty())
-        {
+        if (top5.isEmpty()) {
             System.out.println("Ingen svømmere fundet for denne kategori.");
-        }
-        else
-        {
+        } else {
             System.out.println("Top 5 svømmere i " + swimType + " (" + (isJunior ? "Junior" : "Senior") + "):");
-            for (int i = 0; i < top5.size(); i++)
-            {
+            for (int i = 0; i < top5.size(); i++) {
                 System.out.println((i + 1) + ". " + top5.get(i));
             }
         }
     }
 
-    private void forældreUserInterface() {
-        boolean exit = false;
-        while (!exit) {
-            System.out.println("-------------------------------------------------");
-            System.out.println("1) ");
-            System.out.println("2) ");
-            System.out.println("3) ");
-            System.out.println("4) ");
-            System.out.println("5) ");
-            System.out.println("6) ");
-            System.out.println("7) ");
-            System.out.println("-------------------------------------------------");
-
-
-            int choice = getIntInput("Choose an option:");
-            switch (choice) {/*
-                case 1 -> ;
-                case 2 -> ;
-                case 3 -> ;
-                case 4 -> ;
-                case 5 -> ;
-                case 6 -> ;*/
-                case 7 -> exit = true;
+    //RESPONDERER TIL USERS LOGIN OM DER ER TILLADELSE FOR ADGANG
+    private boolean checkLogIn(String username, String password) {
+        boolean logIn = false;
+        boolean foundUser = false;
+        for (UserLogIn userLogIn : controller.readLogInFile()) {
+            if (userLogIn.getUsername().equalsIgnoreCase(username) && userLogIn.getPassword().equalsIgnoreCase(password)) {
+                foundUser = true;
             }
         }
-    }
-
-    private void addCompetitionResults()
-    {
-        System.out.println("Registrering af konkurrence resultater. (DENNE FUNKTION ER UNDER UDVIKLING).");
-    }
-
-    private void printAllSwimResults()
-    {
-        System.out.println("Viser alle svømmenes discipliner og resultater. (DENNE FUNKTION ER UNDER UDVIKLING).");
+        if (foundUser == true) {
+            logIn = true;
+        } else if (foundUser == false) {
+            System.out.println("Invalid username or password. Please try again.");
+        }
+        return logIn;
     }
 
 }

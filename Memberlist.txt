@@ -1,4 +1,20 @@
-test,12,crawl,true,10561584,false,false,null;2024-11-28, crawl tid: 20 sekunder
-testi,24,rygcrawl,true,33635067,false,false,null,null
-jørgen,68,butterfly,false,65289013,false,true,null,null
-gbfv,54,rygcrawl,false,60509041,true,false,null,null
+qwe,12,bryst,false,97055894,false,false,null;2024-11-29 bryst tid: 20,null2024-11-29 bryst tid: 21sekunderStævne: abcPlacering: 5;
+qewfds,15,rygcrawl,false,36836021,false,false,null;2024-11-29 rygcrawl tid: 45,null;2024-11-29 rygcrawl tid: 46 sekunder Stævne: ABC Placering: 3
+ajdfkv,24,rygcrawl,true,33944660,true,false,null;2024-11-29 rygcrawl tid: 50,null;2024-11-29 rygcrawl tid: 48 sekunder Stævne: DEF Placering: 2
+AnnaHansen,16,Crawl,true,12345678,false,false,null;2024-11-29 crawl tid: 43,null;2024-11-29 crawl tid: 44 sekunder Stævne: GHI Placering: 5
+PeterMadsen,20,Butterfly,true,87654321,true,false,null;2024-11-29 butterfly tid: 55,null;2024-11-29 butterfly tid: 54 sekunder Stævne: JKL Placering: 4
+SofieJensen,14,Brystsvømning,true,13572468,false,false,null;2024-11-29 bryst tid: 60,null;2024-11-29 bryst tid: 61 sekunder Stævne: MNO Placering: 1
+JonasNielsen,18,Rygcrawl,true,24681357,false,false,null;2024-11-29 rygcrawl tid: 44,null;2024-11-29 rygcrawl tid: 45 sekunder Stævne: PQR Placering: 4
+MariaLarsen,22,Crawl,false,11112222,true,false,null;2024-11-29 crawl tid: 52,null;2024-11-29 crawl tid: 53 sekunder Stævne: STU Placering: 2
+KasperChristensen,25,Butterfly,false,33334444,true,false,null;2024-11-29 butterfly tid: 58,null;2024-11-29 butterfly tid: 59 sekunder Stævne: VWX Placering: 1
+LouisePedersen,17,Brystsvømning,true,55556666,false,false,null;2024-11-29 bryst tid: 64,null;2024-11-29 bryst tid: 65 sekunder Stævne: YZA Placering: 5
+MikkelThomsen,19,Crawl,true,77778888,true,false,null;2024-11-29 crawl tid: 48,null;2024-11-29 crawl tid: 49 sekunder Stævne: BCD Placering: 3
+EmmaFrederiksen,21,Rygcrawl,false,99990000,true,false,null;2024-11-29 rygcrawl tid: 51,null;2024-11-29 rygcrawl tid: 52 sekunder Stævne: EFG Placering: 2
+ThomasHansen,15,Butterfly,true,11223344,false,false,null;2024-11-29 butterfly tid: 55,null;2024-11-29 butterfly tid: 56 sekunder Stævne: HIJ Placering: 4
+FrederikJørgensen,23,Crawl,false,22334455,true,false,null;2024-11-29 crawl tid: 49,null;2024-11-29 crawl tid: 50 sekunder Stævne: KLM Placering: 3
+JulieLindberg,24,Brystsvømning,false,33445566,true,false,null;2024-11-29 bryst tid: 67,null;2024-11-29 bryst tid: 68 sekunder Stævne: NOP Placering: 1
+SebastianKrogh,26,Rygcrawl,false,44556677,true,false,null;2024-11-29 rygcrawl tid: 45,null;2024-11-29 rygcrawl tid: 46 sekunder Stævne: QRS Placering: 2
+IdaPoulsen,13,Butterfly,true,55667788,false,false,null;2024-11-29 butterfly tid: 53,null;2024-11-29 butterfly tid: 54 sekunder Stævne: TUV Placering: 5
+RasmusJohansen,27,Crawl,false,66778899,true,false,null;2024-11-29 crawl tid: 50,null;2024-11-29 crawl tid: 51 sekunder Stævne: WXY Placering: 3
+CamillaOlesen,18,Brystsvømning,true,77889900,false,false,null;2024-11-29 bryst tid: 61,null;2024-11-29 bryst tid: 62 sekunder Stævne: ZAB Placering: 4
+MathiasKristensen,22,Rygcrawl,false,88990011,true,false,null;2024-11-29 rygcrawl tid: 46,null;2024-11-29 rygcrawl tid: 47 sekunder Stævne: CDE Placering: 1

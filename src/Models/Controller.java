@@ -122,10 +122,6 @@ public class Controller {
         return memberList.printSeniorELite();
     }
 
-    public void addTrainingResult(String trainingResult){
-
-    }
-
     public ArrayList<Member> searchEliteMembers(String name){
         return memberList.searchEliteMembers(name);
     }
