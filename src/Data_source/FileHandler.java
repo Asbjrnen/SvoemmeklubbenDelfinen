@@ -58,7 +58,7 @@ public class FileHandler {
         try {
             FileWriter fileWriter = new FileWriter("Memberlist.txt");
             for(Member member : memberList){
-                fileWriter.write(member.getName()+","+member.getAge()+","+member.getSvimType()+","+member.getMembertype()+","
+                fileWriter.write(member.getName()+","+member.getAge()+","+member.getSwimType()+","+member.getMembertype()+","
                         +member.getId()+","+member.isMotKon()+","+member.isRes()+","+member.getTrainingResults()+","+member.getCompetitionResults()+"\n");
             }
             fileWriter.close();

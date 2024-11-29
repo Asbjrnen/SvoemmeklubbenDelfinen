@@ -224,7 +224,7 @@ public class UserInterface {
         System.out.println("Enter the new type of swimmer the member is: ");
         String swimType = scanner.nextLine();
         if (!swimType.isEmpty()) {
-            member.setSvimtype(swimType);
+            member.setSwimType(swimType);
         }
         System.out.println("Enter the new type of member: 1 is for aktiv, 2 is for passiv");
         boolean aktiv = true;
@@ -377,14 +377,11 @@ public class UserInterface {
                         break;
                     }
                 }
-                //case 2 -> ;
+                case 2 -> printAllSwimResults();
                 case 3 -> addTrainingInfo();
-                /*case 4 -> ;
-                case 5 -> ;
-                case 6 -> ;
-                case 7 -> ;
-                case 8 -> ;*/
-                case 9 -> exit = true;
+                case 4 -> addCompetitionResults();
+                case 5 -> showTop5Swimmers();
+                case 6 -> exit = true;
             }
         }
     }
@@ -408,13 +405,13 @@ public class UserInterface {
                 System.out.println("Indtast tiden fra træningen");
                 String string = scanner.nextLine();
                 LocalDate date = LocalDate.now();
-                memberToEdit.addTrainingResults(date + " " + memberToEdit.getSvimType() + " tid: " + string);
+                memberToEdit.addTrainingResults(date + " " + memberToEdit.getSwimType() + " tid: " + string);
             } else {
                 Member memberToEdit = memberArrayList.getFirst();
                 System.out.println("Indtast tiden fra træningen");
                 String string = scanner.nextLine();
                 LocalDate date = LocalDate.now();
-                memberToEdit.addTrainingResults(date + " " + memberToEdit.getSvimType() + " tid: " + string);
+                memberToEdit.addTrainingResults(date + " " + memberToEdit.getSwimType() + " tid: " + string);
             }
         } else {
             System.out.println("There are no members called that ");
@@ -422,6 +419,49 @@ public class UserInterface {
         controller.saveMemberList();
     }
 
+    private void showTop5Swimmers()
+    {
+        System.out.println("Vælg en svømmedisciplin:");
+        System.out.println("1) Crawl");
+        System.out.println("2) Rygcrawl");
+        System.out.println("3) Butterfly");
+        System.out.println("4) Brystsvømning");
+
+        String swimType = "";
+        int choice = getIntInput("Vælg discplin: ");
+
+        switch (choice)
+        {
+            case 1 -> swimType = "Crawl";
+            case 2 -> swimType = "Rygcrawl";
+            case 3 -> swimType = "Butterfly";
+            case 4 -> swimType = "Brystsvømning";
+            default ->
+            {
+                System.out.println("Ugyldigt valg.");
+                return;
+            }
+        }
+
+        System.out.println("Vælg aldersgruppe:");
+        System.out.println("1) Junior");
+        System.out.println("2) Senior");
+
+        boolean isJunior = getIntInput("Vælg aldersgruppe: ") == 1;
+        ArrayList<Member> top5 = controller.getMemberList().getTop5Swimmers(swimType, isJunior);
+        if (top5.isEmpty())
+        {
+            System.out.println("Ingen svømmere fundet for denne kategori.");
+        }
+        else
+        {
+            System.out.println("Top 5 svømmere i " + swimType + " (" + (isJunior ? "Junior" : "Senior") + "):");
+            for (int i = 0; i < top5.size(); i++)
+            {
+                System.out.println((i + 1) + ". " + top5.get(i));
+            }
+        }
+    }
 
     private void forældreUserInterface() {
         boolean exit = false;
@@ -449,6 +489,17 @@ public class UserInterface {
             }
         }
     }
+
+    private void addCompetitionResults()
+    {
+        System.out.println("Registrering af konkurrence resultater. (DENNE FUNKTION ER UNDER UDVIKLING).");
+    }
+
+    private void printAllSwimResults()
+    {
+        System.out.println("Viser alle svømmenes discipliner og resultater. (DENNE FUNKTION ER UNDER UDVIKLING).");
+    }
+
 }
 
 /* package UI;

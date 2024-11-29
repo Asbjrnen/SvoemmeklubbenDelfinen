@@ -1,7 +1,5 @@
 package Models;
 
-import java.util.ArrayList;
-
 public class Member {
     private int id;
     private String name;
@@ -60,11 +58,11 @@ public class Member {
     }
 
     //2 forskellige svømmetyper - junior/senior
-    public String getSvimType() {
+    public String getSwimType() {
         return svimtype;
     }
 
-    public void setSvimtype(String Svimtype) {
+    public void setSwimType(String Svimtype) {
         this.svimtype = Svimtype;
     }
 
@@ -153,6 +151,34 @@ public class Member {
         return /*"Id: " + id +*/ "Name: " + name + ", Age: " + age + ", Svimtype: " + svimtype + ", Membertype: " + mT
                 + ", Activity form: " + mK + ", Teamtype: " + jS;
 
+    }
+
+    public double getBestTrainingResult()
+    {
+        if (trainingResults == null || trainingResults.isEmpty())
+        {
+            return Double.MAX_VALUE;
+        }
+
+        String[] results = trainingResults.split(";");
+        double bestResult = Double.MAX_VALUE;
+
+        for (String result : results)
+        {
+            try
+            {
+                double time = Double.parseDouble(result.trim());
+                if (time < bestResult)
+                {
+                    bestResult = time;
+                }
+            }
+            catch (NumberFormatException e)
+            {
+                // DEN IGNORERER, HVIS DER OPSTÅR FEJL
+            }
+        }
+        return bestResult;
     }
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -130,4 +130,8 @@ public class Controller {
         return memberList.searchEliteMembers(name);
     }
 
+    public MemberList getMemberList()
+    {
+        return memberList;
+    }
 }

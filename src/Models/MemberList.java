@@ -1,6 +1,7 @@
 package Models;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class MemberList {
     private ArrayList<Member> members = new ArrayList<>();
@@ -98,6 +99,23 @@ public class MemberList {
             }
         }
         return juniorElites;
+    }
+
+    public ArrayList<Member> getTop5Swimmers(String swimType, boolean isJunior)
+    {
+        ArrayList<Member> filteredSwimmers = new ArrayList<>();
+
+        for (Member member : members)
+        {
+            boolean matchesAgeGroup = isJunior ? (member.getAge() < 18) : (member.getAge() >= 18);
+            if (member.getSwimType().equalsIgnoreCase(swimType) && matchesAgeGroup)
+            {
+                filteredSwimmers.add(member);
+            }
+        }
+        filteredSwimmers.sort(Comparator.comparing(Member::getBestTrainingResult));
+
+        return new ArrayList<>(filteredSwimmers.subList(0, Math.min(5, filteredSwimmers.size())));
     }
 
     public String printJuniorElites() {
