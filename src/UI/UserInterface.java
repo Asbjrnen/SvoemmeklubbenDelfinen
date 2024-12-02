@@ -37,8 +37,7 @@ public class UserInterface {
                 case 1 -> formandUserInterface();
                 case 2 -> kassererUserInterface();
                 case 3 -> trænerUserInterface();
-                //case 4 -> forældreUserInterface();
-                case 5 -> exit = true;
+                case 4 -> exit = true;
             }
         }
 
@@ -55,6 +54,23 @@ public class UserInterface {
         }
     }
 
+    //RESPONDERER TIL USERS LOGIN OM DER ER TILLADELSE FOR ADGANG
+    private boolean checkLogIn(String username, String password) {
+        boolean logIn = false;
+        boolean foundUser = false;
+        for (UserLogIn userLogIn : controller.readLogInFile()) {
+            if (userLogIn.getUsername().equalsIgnoreCase(username) && userLogIn.getPassword().equalsIgnoreCase(password)) {
+                foundUser = true;
+            }
+        }
+        if (foundUser == true) {
+            logIn = true;
+        } else if (foundUser == false) {
+            System.out.println("Ugyldigt brugernavn eller kodeord, prøv igen");
+        }
+        return logIn;
+    }
+
 
     //RESPONDERER TIL USERS INPUT OM DET ER KORREKT ELLER EJ
     private int getIntInput(String userInput) {
@@ -63,7 +79,7 @@ public class UserInterface {
             try {
                 return scanner.nextInt();
             } catch (InputMismatchException e) {
-                System.out.println("Invalid input. Please enter a valid number.");
+                System.out.println("Ugyldig indtastning, indtast venligt et gyldigt nummer");
                 scanner.nextLine();
             }
         }
@@ -72,11 +88,11 @@ public class UserInterface {
     //TILFØJER ET MEMBER TIL MEMBERLIST.TXT
     private void addMember() {
         scanner.nextLine();
-        System.out.println("Please enter the name of the member you would like to add: ");
+        System.out.println("Venligst indtast navnet på det medlem du gerne vil tilføje: ");
         String name = scanner.nextLine();
 
         String swimType = "";
-        System.out.println("Please enter the type of swimmer the member you would like to add is: ");
+        System.out.println("Indtast den type svømmer medlemmet du ønsker at tilføje er: ");
         boolean exit = false;
         while (!exit) {
             System.out.println("-------------------------------------------------");
@@ -86,7 +102,7 @@ public class UserInterface {
             System.out.println("4) Butterfly");
             System.out.println("-------------------------------------------------");
 
-            int choice = getIntInput("Choose an option:");
+            int choice = getIntInput("Vælg en mulighed:");
             switch (choice) {
                 case 1 -> {
                     swimType = "crawl";
@@ -107,26 +123,26 @@ public class UserInterface {
             }
         }
 
-        boolean memType = getIntInput("Please enter the type of member you would like to add: \"\\n 1 is for aktiv, 2 is for passiv ") == 1;
+        boolean memType = getIntInput("Indtast den type medlem du ønkser at tilføje: \"\\n 1 er for aktiv, 2 er for passiv ") == 1;
         if (memType) {
             System.out.println("Aktiv");
         } else {
             System.out.println("Passiv");
         }
 
-        int age = getIntInput("Please enter the age of the member you would like to add: ");
+        int age = getIntInput("Indtast alderen på det medlem du ønsker at tilføje: ");
 
-        System.out.println("A numerical ID will now be generated for the member");
+        System.out.println("Et numerisk ID vil nu blive genereret for medlemmet");
         int id = generateUniqueID();
 
-        boolean motKon = getIntInput("Please enter the activity form your member is using: \"\\n 1 for motionist or 0 for konkurrencesvømmer\"") == 1;
+        boolean motKon = getIntInput("Indtast venligst den aktivitetsform medlemmet udøver: \"\\n 1 er for motionist, 2 er for konkurrencesvømmer\"") == 1;
         if (motKon) {
             System.out.println("Motionist");
         } else {
             System.out.println("Konkurrencesvømmer");
         }
 
-        boolean isRes = getIntInput("Please enter whether the member is in restance or not: \"\\n 1 for yes or 2 for no\"") == 1;
+        boolean isRes = getIntInput("Indtast om medlemmet er i restance eller ej: \"\\n 1 er for ja, 2 er for nej\"") == 1;
         if (isRes) {
             System.out.println("Er i restance");
         } else {
@@ -147,7 +163,7 @@ public class UserInterface {
             if (!controller.isIDTaken(id)) {
                 break;
             } else {
-                System.out.println("a similar ID has been detected, generating a new one");
+                System.out.println("Et lignende ID er opdaget, genererer et nyt");
             }
         }
         return id;
@@ -157,11 +173,11 @@ public class UserInterface {
     //SYSTEMETS RESPONS TIL USER DER VIL FJERNE MEMBER
     private void removeMember() {
         scanner.nextLine();
-        System.out.print("Enter the name of the member you want to delete: ");
+        System.out.print("Enter nanvnet på det medlem du vil slette: ");
         String name = scanner.nextLine();
         controller.removeMember(name);
 
-        System.out.println("Member deleted successfully");
+        System.out.println("Medlemmet er succesfuldt slettet");
     }
 
     //METODE TIL AT UDPRINTE LISTE AF MEMBERS
@@ -171,7 +187,7 @@ public class UserInterface {
 
     //METODE TIL AT VÆLGE HVEM DER SKAL REDIGERES
     private void editMember() {
-        System.out.print("Enter the name of the member you want to edit: ");
+        System.out.print("Enter navnet på det medlem du ønsker at ændre: ");
         String name = scanner.nextLine();
         int counter = 0;
 
@@ -185,7 +201,7 @@ public class UserInterface {
                 System.out.println(counter + ". " + member);
             }
             if (memberArrayList.size() >= 2) {
-                int input = getIntInput("Choose a number that is referring to the member you want to edit: ");
+                int input = getIntInput("Vælg et nummer der refererer til det medlem du ønsker at ændre: ");
                 Member memberToEdit = memberArrayList.get(input - 1);
                 editHelper(memberToEdit);
             } else {
@@ -193,24 +209,24 @@ public class UserInterface {
                 editHelper(memberToEdit);
             }
         } else {
-            System.out.println("There are no members called that ");
+            System.out.println("Der er ikke nogen medlemmer ved det navn");
         }
         controller.saveMemberList();
     }
 
     //METODE TIL AT REDIGERE MEMBERS INFORMATION (UNDTAGEN UNIKT ID)
     private void editHelper(Member member) {
-        System.out.print("Enter the new name of the member: ");
+        System.out.print("Indtast et nyt navn for medlemmet: ");
         String name = scanner.nextLine();
         if (!name.isEmpty()) {
             member.setName(name);
         }
-        System.out.println("Enter the new type of swimmer the member is: ");
+        System.out.println("Indtast den nye svømmetyppe medlemmet er : ");
         String swimType = scanner.nextLine();
         if (!swimType.isEmpty()) {
             member.setSwimtype(swimType);
         }
-        System.out.println("Enter the new type of member: 1 is for aktiv, 2 is for passiv");
+        System.out.println("Indtast den nye type medlemmet er: 1 is for aktiv, 2 is for passiv");
         boolean aktiv = true;
         if (scanner.nextInt() == 1) {
             aktiv = true;
@@ -218,11 +234,11 @@ public class UserInterface {
             aktiv = false;
         }
 
-        System.out.println("Enter the new age of the member: ");
+        System.out.println("Indtast den nye alder for medlemmet: ");
         int age = getIntInput("");
         member.setAge(age);
 
-        System.out.println("Enter the type activity form for the member you want to edit, 1 for motionist, 2 for konkurrencesvømmer: ");
+        System.out.println("Indtast den nye aktivitetsform for medlemmet, 1 for motionist, 2 for konkurrencesvømmer: ");
         boolean motionist = true;
         if (scanner.nextInt() == 1) {
             motionist = true;
@@ -239,16 +255,16 @@ public class UserInterface {
         boolean running = false;
         while (!running) {
             System.out.println("-------------------------------------------------");
-            System.out.println("1) Sort by name");
-            System.out.println("2) sort by age");
-            System.out.println("3) sort by membertype");
-            System.out.println("4) sort by swimtype");
-            System.out.println("5) sort by memberID");
-            System.out.println("6) exit");
+            System.out.println("1) Sorter efter navn");
+            System.out.println("2) Sorter efter alder");
+            System.out.println("3) Sorter efter medlemstype");
+            System.out.println("4) Sorter efter medlemstype");
+            System.out.println("5) Sorter efter medlemsID");
+            System.out.println("6) Exit");
             System.out.println("-------------------------------------------------");
 
 
-            int choice = getIntInput("Choose an option:");
+            int choice = getIntInput("Vælg en mulighed:");
             switch (choice) {
                 case 1 -> {
                     controller.sortByName();
@@ -280,7 +296,7 @@ public class UserInterface {
     //METODE TIL AT SEARCHE EFTER ET MEMBER
     private void findMember() {
         scanner.nextLine();
-        System.out.println("Enter the name of the member you want to find");
+        System.out.println("Indtast nanvnet på det medlem du ønsker at søge efter");
         String name = scanner.nextLine();
         System.out.println(controller.findMember(name));
     }
@@ -289,17 +305,17 @@ public class UserInterface {
         boolean exit = false;
         while (!exit) {
             System.out.println("-------------------------------------------------");
-            System.out.println("1) Add member to the list");
-            System.out.println("2) Remove member from the list");
-            System.out.println("3) View all members on the list");
-            System.out.println("4) Edit a members information");
-            System.out.println("5) Sort the arrangement of members on the list");
-            System.out.println("6) Search for a specific member on the list");
+            System.out.println("1) Tilføj et medlem til registeret");
+            System.out.println("2) Fjern et medlem fra registeret");
+            System.out.println("3) Se alle medlemmer i registreret");
+            System.out.println("4) Ændr et medlems information");
+            System.out.println("5) Vælg sorterering for medlemmer i registeret");
+            System.out.println("6) Søg efter et specifikt medlem i registeret");
             System.out.println("7) Exit");
             System.out.println("-------------------------------------------------");
 
 
-            int choice = getIntInput("Choose an option:");
+            int choice = getIntInput("Vælg en mulighed:");
             switch (choice) {
                 case 1 -> addMember();
                 case 2 -> removeMember();
@@ -323,7 +339,7 @@ public class UserInterface {
             System.out.println("-------------------------------------------------");
 
 
-            int choice = getIntInput("Choose an option:");
+            int choice = getIntInput("Vælg en mulighed:");
             switch (choice) {/*
                 case 1 -> ;*/
                 case 2 -> System.out.println("Total kontigent: " + controller.kontigentBeregner() + " kr.");
@@ -346,14 +362,14 @@ public class UserInterface {
             System.out.println("-------------------------------------------------");
 
 
-            int choice = getIntInput("Choose an option:");
+            int choice = getIntInput("Vælg en mulighed:");
             switch (choice) {
                 case 1 -> {
                     while (true) {
                         System.out.println("1) Junior konkurrencehold");
                         System.out.println("2) Senior konkurrencehold");
 
-                        int choice2 = getIntInput("choose an option");
+                        int choice2 = getIntInput("Vælg en mulighed");
                         switch (choice2) {
                             case 1 -> System.out.println(controller.printJuniorElites());
                             case 2 -> System.out.println(controller.printSeniorElites());
@@ -519,22 +535,4 @@ public class UserInterface {
             }
         }
     }
-
-    //RESPONDERER TIL USERS LOGIN OM DER ER TILLADELSE FOR ADGANG
-    private boolean checkLogIn(String username, String password) {
-        boolean logIn = false;
-        boolean foundUser = false;
-        for (UserLogIn userLogIn : controller.readLogInFile()) {
-            if (userLogIn.getUsername().equalsIgnoreCase(username) && userLogIn.getPassword().equalsIgnoreCase(password)) {
-                foundUser = true;
-            }
-        }
-        if (foundUser == true) {
-            logIn = true;
-        } else if (foundUser == false) {
-            System.out.println("Ugyldigt brugernavn eller kodeord, prøv igen");
-        }
-        return logIn;
-    }
-
 }
