@@ -71,10 +71,6 @@ public class Member {
         return membertype;
     }
 
-    public void setMembertype(boolean aktiv) {
-        this.membertype = aktiv;
-    }
-
     public boolean isMotKon() {
         return motKon;
     }
@@ -87,12 +83,10 @@ public class Member {
         return isRes;
     }
 
-    public void setRes(boolean restance) {
-        isRes = restance;
-    }
     public void addTrainingResults(String trainingResults) {
         this.trainingResults += ";" + trainingResults;
     }
+
     public String getTrainingResults() {
         return trainingResults;
     }
@@ -100,6 +94,7 @@ public class Member {
     public void addCompetitionResults(String competitionResults) {
         this.competitionResults += competitionResults + ";";
     }
+
     public String getCompetitionResults() {
         return competitionResults;
     }
@@ -125,7 +120,28 @@ public class Member {
         return kontigent;
     }
 
-    ///////
+    public double getBestTrainingResult() {
+        if (trainingResults == null || trainingResults.isEmpty()) {
+            return Double.MAX_VALUE;
+        }
+
+        String[] results = trainingResults.split(";");
+        double bestResult = Double.MAX_VALUE;
+
+        for (String result : results) {
+            try {
+                double time = Double.parseDouble(result.trim());
+                if (time < bestResult) {
+                    bestResult = time;
+                }
+            } catch (NumberFormatException e) {
+                // DEN IGNORERER, HVIS DER OPSTÅR FEJL
+            }
+        }
+        return bestResult;
+    }
+
+
     // OVERRIDE AF 'toString()' FOR AT RETURNERE INFO OM MEDLEMMER
     @Override
     public String toString() {
@@ -145,43 +161,15 @@ public class Member {
         String mT = "";
         if (membertype) {
             mT = "Aktiv";
-        }else {
+        } else {
             mT = "Passiv";
         }
-        return /*"Id: " + id +*/ "Name: " + name + ", Age: " + age + ", Svimtype: " + svimtype + ", Membertype: " + mT
+        return "Name: " + name + ", Age: " + age + ", Svimtype: " + svimtype + ", Membertype: " + mT
                 + ", Activity form: " + mK + ", Teamtype: " + jS;
 
     }
-
-    public double getBestTrainingResult()
-    {
-        if (trainingResults == null || trainingResults.isEmpty())
-        {
-            return Double.MAX_VALUE;
-        }
-
-        String[] results = trainingResults.split(";");
-        double bestResult = Double.MAX_VALUE;
-
-        for (String result : results)
-        {
-            try
-            {
-                double time = Double.parseDouble(result.trim());
-                if (time < bestResult)
-                {
-                    bestResult = time;
-                }
-            }
-            catch (NumberFormatException e)
-            {
-                // DEN IGNORERER, HVIS DER OPSTÅR FEJL
-            }
-        }
-        return bestResult;
-    }
 }
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 
 

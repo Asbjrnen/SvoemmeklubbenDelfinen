@@ -53,7 +53,6 @@ public class FileHandler {
         }
     }
 
-    ///////////////////////////////////////////////////////////////////////////////
     //OPRETTELSE AF ADGANGSPORTAL TIL FORSKELLIGE USERS
     public ArrayList<UserLogIn> readUserLogIn() {
         ArrayList<UserLogIn> userLogInList = new ArrayList<>();

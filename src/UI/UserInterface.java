@@ -439,7 +439,7 @@ public class UserInterface {
                 memberToEdit.addTrainingResults(date + " " + memberToEdit.getSwimType() + " tid: " + string);
             }
         } else {
-            System.out.println("There are no members called that ");
+            System.out.println("Der er ingen medlemmer med det navn ");
         }
         controller.saveMemberList();
     }
@@ -478,7 +478,7 @@ public class UserInterface {
                 memberToEdit.addCompetitionResults(date + " " + memberToEdit.getSwimType() + " tid: " + string + "sekunder" + "Stævne: " + stævne + "Placering: " + placering);
             }
         } else {
-            System.out.println("There are no members called that ");
+            System.out.println("Der er ingen medlemmer med det navn ");
         }
         controller.saveMemberList();
     }
@@ -532,25 +532,9 @@ public class UserInterface {
         if (foundUser == true) {
             logIn = true;
         } else if (foundUser == false) {
-            System.out.println("Invalid username or password. Please try again.");
+            System.out.println("Ugyldigt brugernavn eller kodeord, prøv igen");
         }
         return logIn;
     }
 
 }
-
-/* package UI;
-
-import Data_source.LoginSystem;
-
-import java.util.Scanner;
-
-public class UserInterface {
-    private Scanner scanner;
-    private LoginSystem loginSystem;
-
-    public UserInterface() {
-        this.scanner = new Scanner(System.in);
-        this.loginSystem = new LoginSystem();
-    }
-*/

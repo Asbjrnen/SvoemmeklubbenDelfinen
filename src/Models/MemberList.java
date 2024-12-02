@@ -142,18 +142,4 @@ public class MemberList {
         }
         return seniorElites;
     }
-
-    public ArrayList<Member> searchElites(String name) {
-        ArrayList<Member> searchResult = new ArrayList<>();
-        for (Member member : members) {
-            if (member.getName().toLowerCase().contains(name.toLowerCase())) {
-                if (!member.isMotKon()) {
-                    searchResult.add(member);
-
-                }
-
-            }
-        }
-        return searchResult;
-    }
 }
