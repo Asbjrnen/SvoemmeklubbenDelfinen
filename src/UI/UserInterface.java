@@ -26,21 +26,33 @@ public class UserInterface {
         while (!running) {
             System.out.println("-------------------------");
             System.out.println("Svømmeklubben Delfinen");
-            String username = "";
-            System.out.println("Indtast brugernavn:");
-            username = scanner.nextLine();
-            System.out.println("Indtast kode:");
-            String password = scanner.nextLine();
+            System.out.println("1) log ind i systemet");
+            System.out.println("2) Exit");
 
-            if (checkLogIn(username, password) == true) {
+            int choice = getIntInput("Choose an option: ");
+            switch (choice) {
+                case 1 -> {
+                    scanner.nextLine();
+                    String username = "";
+                    System.out.println("Indtast brugernavn:");
+                    username = scanner.nextLine();
+                    System.out.println("Indtast kode:");
+                    String password = scanner.nextLine();
 
-                String choice = username.replaceAll("[^a-zA-ZæÆ]", "");
-                System.out.println("Du er logget ind som " + choice);
+                    if (checkLogIn(username, password) == true) {
 
-                switch (choice) {
-                    case "formand" -> formandUserInterface();
-                    case "kasserer" -> kassererUserInterface();
-                    case "træner" -> trænerUserInterface();
+                        String choice2 = username.replaceAll("[^a-zA-ZæÆ]", "");
+                        System.out.println("Du er logget ind som " + choice2);
+
+                        switch (choice2) {
+                            case "formand" -> formandUserInterface();
+                            case "kasserer" -> kassererUserInterface();
+                            case "træner" -> trænerUserInterface();
+                        }
+                    }
+                }
+                case 2 -> {
+                    running = true;
                 }
             }
         }
