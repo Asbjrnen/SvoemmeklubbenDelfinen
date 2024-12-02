@@ -20,38 +20,33 @@ public class UserInterface {
     public void Startprogram() {
 
         controller.readMemberList();
-        //REGISTER LISTEN TIL UDVIKLER TEAMET (AL INFORMATION ER TILGÆNGELIGT)
-        boolean exit = false;
-        while (!exit) {
-            System.out.println("-------------------------------------------------");
-            System.out.println("1) Log in as formand");
-            System.out.println("2) Log in as kasserer");
-            System.out.println("3) Log in as træner");
-            System.out.println("4) Log in as forældre");
-            System.out.println("5) Exit");
-            System.out.println("-------------------------------------------------");
 
-
-            int choice = getIntInput("Choose an option:");
-            switch (choice) {
-                case 1 -> formandUserInterface();
-                case 2 -> kassererUserInterface();
-                case 3 -> trænerUserInterface();
-                case 4 -> exit = true;
-            }
-        }
 
         boolean running = false;
         while (!running) {
-            System.out.println("Enter username:");
-            String username = scanner.nextLine();
-            System.out.println("Enter password:");
+            System.out.println("-------------------------");
+            System.out.println("Svømmeklubben Delfinen");
+            String username = "";
+            System.out.println("Indtast brugernavn:");
+            username = scanner.nextLine();
+            System.out.println("Indtast kode:");
             String password = scanner.nextLine();
 
             if (checkLogIn(username, password) == true) {
-                running = true;
+
+                String choice = username.replaceAll("[^a-zA-ZæÆ]", "");
+                System.out.println("Du er logget ind som " + choice);
+
+                switch (choice) {
+                    case "formand" -> formandUserInterface();
+                    case "kasserer" -> kassererUserInterface();
+                    case "træner" -> trænerUserInterface();
+                }
             }
         }
+
+
+
     }
 
     //RESPONDERER TIL USERS LOGIN OM DER ER TILLADELSE FOR ADGANG
@@ -84,6 +79,7 @@ public class UserInterface {
             }
         }
     }
+
     private void formandUserInterface() {
         boolean exit = false;
         while (!exit) {
@@ -106,7 +102,10 @@ public class UserInterface {
                 case 4 -> editMember();
                 case 5 -> sortMembers();
                 case 6 -> findMember();
-                case 7 -> exit = true;
+                case 7 -> {
+                    exit = true;
+                    scanner.nextLine();
+                }
             }
         }
     }
@@ -328,7 +327,6 @@ public class UserInterface {
     }
 
 
-
     private void kassererUserInterface() {
         boolean exit = false;
         while (!exit) {
@@ -343,7 +341,10 @@ public class UserInterface {
             switch (choice) {
                 case 1 -> System.out.println("Total kontigent: " + controller.kontigentBeregner() + " kr.");
                 case 2 -> System.out.println(controller.getRestance());
-                case 3 -> exit = true;
+                case 3 -> {
+                    exit = true;
+                    scanner.nextLine();
+                }
             }
         }
     }
@@ -380,7 +381,10 @@ public class UserInterface {
                 case 3 -> addTrainingInfo();
                 case 4 -> addKonkurrenceInfo();
                 case 5 -> showTop5Swimmers();
-                case 6 -> exit = true;
+                case 6 -> {
+                    exit = true;
+                    scanner.nextLine();
+                }
             }
         }
     }
