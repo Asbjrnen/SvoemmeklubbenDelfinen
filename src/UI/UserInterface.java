@@ -84,6 +84,32 @@ public class UserInterface {
             }
         }
     }
+    private void formandUserInterface() {
+        boolean exit = false;
+        while (!exit) {
+            System.out.println("-------------------------------------------------");
+            System.out.println("1) Tilføj et medlem til registeret");
+            System.out.println("2) Fjern et medlem fra registeret");
+            System.out.println("3) Se alle medlemmer i registreret");
+            System.out.println("4) Ændr et medlems information");
+            System.out.println("5) Vælg sorterering for medlemmer i registeret");
+            System.out.println("6) Søg efter et specifikt medlem i registeret");
+            System.out.println("7) Exit");
+            System.out.println("-------------------------------------------------");
+
+
+            int choice = getIntInput("Vælg en mulighed:");
+            switch (choice) {
+                case 1 -> addMember();
+                case 2 -> removeMember();
+                case 3 -> printMembers();
+                case 4 -> editMember();
+                case 5 -> sortMembers();
+                case 6 -> findMember();
+                case 7 -> exit = true;
+            }
+        }
+    }
 
     //TILFØJER ET MEMBER TIL MEMBERLIST.TXT
     private void addMember() {
@@ -301,50 +327,23 @@ public class UserInterface {
         System.out.println(controller.findMember(name));
     }
 
-    private void formandUserInterface() {
-        boolean exit = false;
-        while (!exit) {
-            System.out.println("-------------------------------------------------");
-            System.out.println("1) Tilføj et medlem til registeret");
-            System.out.println("2) Fjern et medlem fra registeret");
-            System.out.println("3) Se alle medlemmer i registreret");
-            System.out.println("4) Ændr et medlems information");
-            System.out.println("5) Vælg sorterering for medlemmer i registeret");
-            System.out.println("6) Søg efter et specifikt medlem i registeret");
-            System.out.println("7) Exit");
-            System.out.println("-------------------------------------------------");
 
-
-            int choice = getIntInput("Vælg en mulighed:");
-            switch (choice) {
-                case 1 -> addMember();
-                case 2 -> removeMember();
-                case 3 -> printMembers();
-                case 4 -> editMember();
-                case 5 -> sortMembers();
-                case 6 -> findMember();
-                case 7 -> exit = true;
-            }
-        }
-    }
 
     private void kassererUserInterface() {
         boolean exit = false;
         while (!exit) {
             System.out.println("-------------------------------------------------");
-            System.out.println("1) Information om diverse kontingenter");
-            System.out.println("2) Generation af samlet oversigt af forventede kontingenter");
-            System.out.println("3) Informtion om medlemmer i restance");
-            System.out.println("4) Exit");
+            System.out.println("1) Generation af samlet oversigt af forventede kontingenter");
+            System.out.println("2) Informtion om medlemmer i restance");
+            System.out.println("3) Exit");
             System.out.println("-------------------------------------------------");
 
 
             int choice = getIntInput("Vælg en mulighed:");
-            switch (choice) {/*
-                case 1 -> ;*/
-                case 2 -> System.out.println("Total kontigent: " + controller.kontigentBeregner() + " kr.");
-                case 3 -> System.out.println(controller.getRestance());
-                case 4 -> exit = true;
+            switch (choice) {
+                case 1 -> System.out.println("Total kontigent: " + controller.kontigentBeregner() + " kr.");
+                case 2 -> System.out.println(controller.getRestance());
+                case 3 -> exit = true;
             }
         }
     }
