@@ -1,7 +1,7 @@
-package Models;
+package models;
 
-import Models.Comparators.*;
-import Data_source.FileHandler;
+import models.comparators.*;
+import data_source.FileHandler;
 
 import java.util.ArrayList;
 

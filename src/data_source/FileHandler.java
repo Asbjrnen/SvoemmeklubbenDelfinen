@@ -1,7 +1,7 @@
-package Data_source;
+package data_source;
 
-import Models.Member;
-import Models.UserLogIn;
+import models.Member;
+import models.UserLogIn;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -9,8 +9,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class FileHandler {
-    private File memberListFile = new File("Memberlist.txt");
-    private File logInFile = new File("UserLogin.txt");
+    private File memberListFile = new File("Memberlist.csv");
+    private File logInFile = new File("UserLogin.csv");
 
 
     //MULIGGØRER LOADING AF MEMBER TIL MEMBERLIST.TXT
@@ -41,7 +41,7 @@ public class FileHandler {
     //GEMMER FORSKELLIGE MEMBERS TIL MEMBERLIST.TXT
     public void saveFile(ArrayList<Member> memberList) {
         try {
-            FileWriter fileWriter = new FileWriter("Memberlist.txt");
+            FileWriter fileWriter = new FileWriter("Memberlist.csv");
             for (Member member : memberList) {
                 fileWriter.write(member.getName() + "," + member.getAge() + "," + member.getSwimType() + "," + member.getMembertype() + ","
                         + member.getId() + "," + member.isMotKon() + "," + member.isRes() + "," + member.getTrainingResults() + "," + member.getCompetitionResults() + "\n");

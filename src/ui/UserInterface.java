@@ -1,8 +1,8 @@
-package UI;
+package ui;
 
-import Models.Controller;
-import Models.Member;
-import Models.UserLogIn;
+import models.Controller;
+import models.Member;
+import models.UserLogIn;
 
 import java.time.LocalDate;
 import java.util.*;

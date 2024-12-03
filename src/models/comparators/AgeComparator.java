@@ -1,9 +1,9 @@
-package Models.Comparators;
+package models.comparators;
 
-import Models.Member;
+import models.Member;
 
 import java.util.Comparator;
-//CONSTRUCTOR TIL SORTERING EFTER ALDER
+
 public class AgeComparator implements Comparator<Member> {
         @Override
         public int compare(Member o1, Member o2) {
