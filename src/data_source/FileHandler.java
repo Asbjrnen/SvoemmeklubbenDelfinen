@@ -9,8 +9,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class FileHandler {
-    private File memberListFile = new File("Memberlist.csv");
-    private File logInFile = new File("UserLogin.csv");
+    private File memberListFile = new File("src/data_source/Memberlist.csv");
+    private File logInFile = new File("src/data_source/UserLogin.csv");
 
 
     //MULIGGØRER LOADING AF MEMBER TIL MEMBERLIST.TXT
