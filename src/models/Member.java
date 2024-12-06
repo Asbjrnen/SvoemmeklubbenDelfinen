@@ -20,6 +20,8 @@ public class Member {
         this.svimtype = svimtype;
         this.membertype = membertype;
         this.motKon = motKon;
+        this.trainingResults = "";
+        this.competitionResults = "";
     }
 
     public Member(String name, int age, String svimtype, boolean membertype, int id, boolean motKon, boolean isRes,
@@ -31,8 +33,8 @@ public class Member {
         this.svimtype = svimtype;
         this.membertype = membertype;
         this.motKon = motKon;
-        this.trainingResults = trainingResults;
-        this.competitionResults = competitionResults;
+        this.trainingResults = trainingResults != null ? trainingResults : "";
+        this.competitionResults = competitionResults != null ? competitionResults : "";
     }
 
 
@@ -84,7 +86,14 @@ public class Member {
     }
 
     public void addTrainingResults(String trainingResults) {
-        this.trainingResults += ";" + trainingResults;
+        if (this.trainingResults == null || this.trainingResults.isEmpty())
+        {
+            this.trainingResults = trainingResults;
+        }
+        else
+        {
+            this.trainingResults += ";" + trainingResults;
+        }
     }
 
     public String getTrainingResults() {
@@ -92,7 +101,14 @@ public class Member {
     }
 
     public void addCompetitionResults(String competitionResults) {
-        this.competitionResults += competitionResults + ";";
+        if (this.competitionResults == null || this.competitionResults.isEmpty())
+        {
+            this.competitionResults = competitionResults + ";";
+        }
+        else
+        {
+            this.competitionResults += competitionResults + ";";
+        }
     }
 
     public String getCompetitionResults() {
@@ -145,28 +161,21 @@ public class Member {
     // OVERRIDE AF 'toString()' FOR AT RETURNERE INFO OM MEDLEMMER
     @Override
     public String toString() {
-        String jS = "";
-        if (age < 18) {
-            jS = "junior";
-        } else {
-            jS = "senior";
-        }
-        String mK = "";
-        if (motKon) {
-            mK = "Motionist";
-        } else {
-            mK = "Konkurrencesvømmer";
-        }
+        String jS = age < 18 ? "junior" : "senior";
+        String mK = motKon ? "Motionist" : "Konkurrencesvømmer";
+        String mT = membertype ? "Aktiv" : "Passiv";
 
-        String mT = "";
-        if (membertype) {
-            mT = "Aktiv";
-        } else {
-            mT = "Passiv";
-        }
-        return "Name: " + name + ", Age: " + age + ", Svimtype: " + svimtype + ", Membertype: " + mT
-                + ", Activity form: " + mK + ", Teamtype: " + jS;
+        String trainingInfo = trainingResults.isEmpty() ? "Ingen træningsresultater" : trainingResults;
+        String competitionInfo = competitionResults.isEmpty() ? "Ingen konkurrenceresultater" : competitionResults;
 
+        return "Name: " + name +
+                "\nAge: " + age +
+                "\nSwimtype: " + svimtype +
+                "\nMembertype: " + mT +
+                "\nActivity form: " + mK +
+                "\nTeamtype: " + jS +
+                "\nTraining Results: " + trainingInfo +
+                "\nCompetition Results: " + competitionInfo;
     }
 }
 

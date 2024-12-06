@@ -27,8 +27,8 @@ public class FileHandler {
                 int id = Integer.parseInt(words[4]);
                 boolean motKon = Boolean.parseBoolean(words[5]);
                 boolean isRes = Boolean.parseBoolean(words[6]);
-                String trainingResult = words[7];
-                String competitionResult = words[8];
+                String trainingResult = (words.length > 7 && !words[7].isEmpty() && !words[7].equalsIgnoreCase("null")) ? words[7] : "";
+                String competitionResult = (words.length > 8 && !words[8].isEmpty() && !words[8].equalsIgnoreCase("null")) ? words[8] : "";
 
                 memberList.add(new Member(name, age, swimtype, membertype, id, motKon, isRes, trainingResult, competitionResult));
             }
