@@ -1,7 +1,9 @@
 package models;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Comparator;
+import java.util.Dictionary;
 
 public class MemberList {
     private ArrayList<Member> members = new ArrayList<>();
@@ -142,4 +144,5 @@ public class MemberList {
         }
         return seniorElites;
     }
+
 }
