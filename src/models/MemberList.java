@@ -1,15 +1,13 @@
 package models;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Comparator;
-import java.util.Dictionary;
 
 public class MemberList {
-    private ArrayList<Member> members = new ArrayList<>();
+    private static ArrayList<Member> members = new ArrayList<>();
 
     //Tilføjer members
-    public void addMember(Member member) {
+    public static void addMember(Member member) {
         members.add(member);
     }
 
@@ -19,7 +17,7 @@ public class MemberList {
     }
 
     //Skal bruges i Controller til save-file
-    public ArrayList<Member> getMembersList() {
+    public ArrayList<Member> getMemberList() {
         return members;
     }
 

@@ -25,7 +25,7 @@ public class Controller {
 
     // GEMMER MEDLEMSLISTEN TIL FIL
     public void saveMemberList(){
-        fileHandler.saveFile(memberList.getMembersList());
+        fileHandler.saveFile(memberList.getMemberList());
     }
 
     // LÆSER LOGIN-OPLYSNINGERNE FRA FIL
@@ -57,7 +57,7 @@ public class Controller {
 
     // GETTER FOR ALLE MEDLEMMER
     public ArrayList<Member> getMembers() {
-        return memberList.getMembersList();
+        return memberList.getMemberList();
     }
 
     // SORTERER MEDLEMMER EFTER NAVN
@@ -98,7 +98,7 @@ public class Controller {
 
     // TJEKKER OM ID ALLEREDE ER TAGET
     public boolean isIDTaken(int id) {
-        for (Member member : memberList.getMembersList()) {
+        for (Member member : memberList.getMemberList()) {
             if (member.getId() == id) {
                 return true;
             }
