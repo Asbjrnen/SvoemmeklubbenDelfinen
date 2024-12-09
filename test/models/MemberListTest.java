@@ -1,8 +1,8 @@
-import models.Member;
-import models.MemberList;
+package models;
+
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 class MemberListTest {
 
@@ -20,5 +20,15 @@ class MemberListTest {
 
         // TJEKKER AT DATAENE STEMMER OVERENS MED DET VI HAR SKREVET OVEN FOR I TESTEN
         assertEquals("Test Name", memberList.getMembersList().get(0).getName());
+    }
+
+    @Test
+    void removeMember() {
+        MemberList memberList = new MemberList();
+        Member member = new Member("Test Name", 20, "Crawl", true, 1, true, false, "0:30", "1:00");
+        memberList.addMember(member);
+        memberList.removeMember("Test Name");
+        assertEquals(0, memberList.getMembersList().size());
+        
     }
 }
