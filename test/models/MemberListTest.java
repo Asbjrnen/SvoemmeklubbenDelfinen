@@ -29,6 +29,19 @@ class MemberListTest {
         memberList.addMember(member);
         memberList.removeMember("Test Name");
         assertEquals(0, memberList.getMembersList().size());
-        
+    }
+
+    @Test
+    void kontigentBeregner() {
+        MemberList memberList = new MemberList();
+        Member member1 = new Member("Test Name", 15, "Crawl", true, 1, true, true, "0:30", "1:00");
+        Member member2 = new Member("Test Name", 20, "Crawl", true, 2, true, true, "0:30", "1:00");
+        Member member3 = new Member("Test Name", 70, "Crawl", true, 3, true, true, "0:30", "1:00");
+        Member member4 = new Member("Test Name", 50, "Crawl", false, 3, true, true, "0:30", "1:00");
+        memberList.addMember(member1);
+        memberList.addMember(member2);
+        memberList.addMember(member3);
+        memberList.addMember(member4);
+        assertEquals(4300.0, memberList.kontingentBeregner());
     }
 }

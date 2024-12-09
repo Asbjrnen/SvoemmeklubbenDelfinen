@@ -119,7 +119,7 @@ public class Member {
         double kontigent = 0.0;
         double juniorKon = 1000.0;
         double senKon = 1600.0;
-        double sen60 = 0.25;
+        double sen60 = 0.75;
         double passivKon = 500.0;
 
         if (membertype == false) {
